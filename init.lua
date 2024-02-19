@@ -20,4 +20,17 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup("plugins_lazy")
 
 -- Rose Pine theme setup
-require('rose_pine')
+-- require('rose_pine')
+
+--Everforest theme
+require('colorscheme')
+
+-- Key mappings
+require('keymappings')
+
+-- Apply general vim settings
+require('settings')
+
+-- Configure plugins
+require('pluginconfigs')
+
