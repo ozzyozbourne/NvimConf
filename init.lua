@@ -24,3 +24,13 @@ require("lazy").setup("plugins_lazy")
 
 --Everforest theme
 require('colorscheme')
+
+-- Key mappings
+require('keymappings')
+
+-- Apply general vim settings
+require('settings')
+
+-- Configure plugins
+require('pluginconfigs')
+
