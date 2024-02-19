@@ -2,7 +2,6 @@ local utils = require('utils')
 local wk = require("which-key")
 
 -- ToggleTerm Key Mappings
-utils.map('i', [[<C-\>]], '<cmd>exe v:count1 . "ToggleTerm size=80 direction=vertical"<CR>')
 utils.map('n', [[<C-\>]], '<cmd>exe v:count1 . "ToggleTerm size=80 direction=vertical"<CR>')
 
 -- toggle term
