@@ -49,25 +49,25 @@ require 'nvim-treesitter.configs'.setup {
     auto_install = false,
 }
 
-require("toggleterm").setup{
-  size = 20,
-  open_mapping = [[<c-\>]],
-  hide_numbers = true, -- hide the number column in toggleterm buffers
-  shade_filetypes = {},
-  autochdir = false, -- when neovim changes it current directory the terminal will change it's own when next it's opened
-  start_in_insert = true,
-  insert_mappings = true, -- whether or not the open mapping applies in insert mode
-  terminal_mappings = true, -- whether or not the open mapping applies in the opened terminals
-  persist_size = true,
-  persist_mode = true, -- if set to true (default) the previous terminal mode will be remembered
-  direction = 'float',
-  close_on_exit = true, -- close the terminal window when the process exits
-   -- Change the default shell. Can be a string or a function returning a string
-  shell = vim.o.shell,
-  auto_scroll = true, -- automatically scroll to the bottom on terminal output
-  -- This field is only relevant if direction is set to 'float'
-  float_opts = {border ='curved'},
- }
+require("toggleterm").setup {
+    size = 20,
+    open_mapping = [[<c-\>]],
+    hide_numbers = true,      -- hide the number column in toggleterm buffers
+    shade_filetypes = {},
+    autochdir = false,        -- when neovim changes it current directory the terminal will change it's own when next it's opened
+    start_in_insert = true,
+    insert_mappings = true,   -- whether or not the open mapping applies in insert mode
+    terminal_mappings = true, -- whether or not the open mapping applies in the opened terminals
+    persist_size = true,
+    persist_mode = true,      -- if set to true (default) the previous terminal mode will be remembered
+    direction = 'float',
+    close_on_exit = true,     -- close the terminal window when the process exits
+    -- Change the default shell. Can be a string or a function returning a string
+    shell = vim.o.shell,
+    auto_scroll = true, -- automatically scroll to the bottom on terminal output
+    -- This field is only relevant if direction is set to 'float'
+    float_opts = { border = 'curved' },
+}
 
 -- which-key
 require("which-key").setup {
@@ -123,23 +123,23 @@ require("neo-tree").setup({
             hide_gitignored = false,
             hide_hidden = true, -- only works on Windows for hidden files/directories
             hide_by_name = {
-              --"node_modules"
+                --"node_modules"
             },
             hide_by_pattern = { -- uses glob style patterns
-              --"*.meta",
-              --"*/src/*/tsconfig.json",
+                --"*.meta",
+                --"*/src/*/tsconfig.json",
             },
             always_show = { -- remains visible even if other settings would normally hide it
-              --".gitignored",
+                --".gitignored",
             },
             never_show = { -- remains hidden even if visible is toggled to true, this overrides always_show
-              --".DS_Store",
-              --"thumbs.db"
+                --".DS_Store",
+                --"thumbs.db"
             }
         }
     }
-})    
-     
+})
+
 require('lualine').setup({
     options = {
         theme = auto,
@@ -233,3 +233,68 @@ cmp.setup({
         { name = 'buffer' },
     })
 })
+
+require('telescope').setup({
+    pickers = {
+        find_files = {
+            theme = "dropdown",
+        },
+        live_grep = {
+            theme = "dropdown",
+        },
+        help_tags = {
+            theme = "dropdown",
+        }
+    }
+})
+
+
+local format_on_save = require("format-on-save")
+local formatters = require("format-on-save.formatters")
+
+format_on_save.setup({
+    exclude_path_patterns = {
+        "/node_modules/",
+        ".local/share/nvim/lazy",
+    },
+    formatter_by_ft = {
+        css = formatters.lsp,
+        html = formatters.lsp,
+        java = formatters.lsp,
+        javascript = formatters.lsp,
+        json = formatters.lsp,
+        lua = formatters.lsp,
+        markdown = formatters.prettierd,
+        openscad = formatters.lsp,
+        python = formatters.black,
+        rust = formatters.lsp,
+        scad = formatters.lsp,
+        scss = formatters.lsp,
+        sh = formatters.shfmt,
+        terraform = formatters.lsp,
+        typescript = formatters.prettierd,
+        typescriptreact = formatters.prettierd,
+        yaml = formatters.lsp,
+        go = formatters.lsp,
+    },
+})
+
+local autosave = require('autosave')
+autosave.setup(
+    {
+        enable = true,
+        prompt_style = 'stdout',
+        prompt_message = function()
+            return 'Autosave: saved at ' .. vim.fn.strftime('%H:%M:%S')
+        end,
+        events = { 'InsertLeave', 'TextChanged' },
+        conditions = {
+            exists = true,
+            modifiable = true,
+            filename_is_not = {},
+            filetype_is_not = {}
+        },
+        write_all_buffers = false,
+        debounce_delay = 135
+    }
+)
