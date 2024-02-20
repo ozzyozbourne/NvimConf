@@ -7,9 +7,33 @@ require 'nvim-treesitter.configs'.setup {
         "fish",
         "lua",
         "markdown",
-        "vim",
         "regex",
-        "markdown_inline",
+        "vimdoc",
+        "query",
+        "javascript",
+        "cmake",
+        "css",
+        "cpp",
+        "dockerfile",
+        "elixir",
+        "erlang",
+        "gitignore",
+        "go",
+        "gosum",
+        "html",
+        "java",
+        "json",
+        "kotlin",
+        "make",
+        "proto",
+        "heex",
+        "sql",
+        "toml",
+        "typescript",
+        "yaml",
+        "zig",
+        "rust",
+        "python",
     },
 
     -- Install parsers synchronously
@@ -111,16 +135,101 @@ require("neo-tree").setup({
             never_show = { -- remains hidden even if visible is toggled to true, this overrides always_show
               --".DS_Store",
               --"thumbs.db"
-            },
-            never_show_by_pattern = { -- uses glob style patterns
-              --".null-ls_*",
-            },
-          },
-          follow_current_file = {
-            enabled = true, -- This will find and focus the file in the active buffer every time
-            --               -- the current file is changed while the tree is open.
-            leave_dirs_open = true, -- `false` closes auto expanded dirs, such as with `:Neotree reveal`
-          },
+            }
+        }
+    }
+})    
+     
+require('lualine').setup({
+    options = {
+        theme = auto,
+        component_separators = '|',
+        section_separators = { left = '', right = '' },
     },
+    sections = {
+        lualine_a = {
+            { 'mode', separator = { left = '' }, right_padding = 2 },
+        },
+        lualine_b = { 'filename', 'branch' },
+        lualine_c = { 'fileformat' },
+        lualine_x = {},
+        lualine_y = { 'filetype', 'progress' },
+        lualine_z = {
+            { 'location', separator = { right = '' }, left_padding = 2 },
+        },
+    },
+    inactive_sections = {
+        lualine_a = { 'filename' },
+        lualine_b = {},
+        lualine_c = {},
+        lualine_x = {},
+        lualine_y = {},
+        lualine_z = { 'location' },
+    },
+    tabline = {},
+    extensions = {},
 })
 
+require('java').setup()
+
+require('mason').setup()
+require('mason-lspconfig').setup()
+require("mason-lspconfig").setup_handlers {
+    -- The first entry (without a key) will be the default handler
+    -- and will be called for each installed server that doesn't have
+    -- a dedicated handler.
+    function(server_name) -- default handler (optional)
+        require("lspconfig")[server_name].setup {}
+    end,
+}
+
+require('lspmappings')
+
+local cmp = require('cmp')
+cmp.setup({
+    snippet = {
+        -- REQUIRED - you must specify a snippet engine
+        expand = function(args)
+            vim.fn["vsnip#anonymous"](args.body)
+        end,
+    },
+    window = {
+        completion = cmp.config.window.bordered(),
+        documentation = cmp.config.window.bordered(),
+    },
+    mapping = cmp.mapping.preset.insert({
+        ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+        ['<C-f>'] = cmp.mapping.scroll_docs(4),
+        ['<C-Space>'] = cmp.mapping.complete(),
+        ['<C-e>'] = cmp.mapping.abort(),
+        ['<CR>'] = cmp.mapping.confirm({ select = false }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+        -- Super-Tab like mappings
+        -- https://github.com/hrsh7th/nvim-cmp/wiki/Example-mappings#vim-vsnip
+        ["<Tab>"] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+                cmp.select_next_item()
+            elseif vim.fn["vsnip#available"](1) == 1 then
+                feedkey("<Plug>(vsnip-expand-or-jump)", "")
+            elseif has_words_before() then
+                cmp.complete()
+            else
+                fallback() -- The fallback function sends a already mapped key. In this case, it's probably `<Tab>`.
+            end
+        end, { "i", "s" }),
+
+        ["<S-Tab>"] = cmp.mapping(function()
+            if cmp.visible() then
+                cmp.select_prev_item()
+            elseif vim.fn["vsnip#jumpable"](-1) == 1 then
+                feedkey("<Plug>(vsnip-jump-prev)", "")
+            end
+        end, { "i", "s" }),
+
+    }),
+    sources = cmp.config.sources({
+        { name = 'vsnip' }, -- For ultisnips users.
+        { name = 'nvim_lsp' },
+    }, {
+        { name = 'buffer' },
+    })
+})
