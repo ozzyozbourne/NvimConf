@@ -298,3 +298,8 @@ autosave.setup(
         debounce_delay = 135
     }
 )
+
+require('Comment').setup()
+
+-- indent blankline
+require("ibl").setup()

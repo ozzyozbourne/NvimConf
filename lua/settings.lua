@@ -24,3 +24,7 @@ vim.o.timeout = true
 vim.o.timeoutlen = 300
 vim.o.mouse = ''
 vim.o.undofile = true
+
+-- Indent blankline
+vim.opt.list = true
+vim.opt.listchars:append "eol:↴"
