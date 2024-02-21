@@ -61,4 +61,7 @@ return {
     { "0x00-ketsu/autosave.nvim" },
     { 'numToStr/Comment.nvim' },
     { "lukas-reineke/indent-blankline.nvim", tag = "v3.5.3",                            main = "ibl", opts = {} },
+    { 'mbbill/undotree' },
+    { 'windwp/nvim-autopairs',               event = "InsertEnter",                     opts = {} },
+
 }
