@@ -61,4 +61,13 @@ return {
     { "0x00-ketsu/autosave.nvim" },
     { 'numToStr/Comment.nvim' },
     { "lukas-reineke/indent-blankline.nvim", tag = "v3.5.3",                            main = "ibl", opts = {} },
+    { 'mbbill/undotree' },
+    { 'windwp/nvim-autopairs',               event = "InsertEnter",                     opts = {} },
+    {
+        'kevinhwang91/nvim-ufo',
+        dependencies = { 'kevinhwang91/promise-async' },
+    },
+    { 'akinsho/bufferline.nvim', version = "*", dependencies = 'nvim-tree/nvim-web-devicons' },
+    { 'ThePrimeagen/harpoon' },
+
 }

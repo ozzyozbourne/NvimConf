@@ -28,3 +28,10 @@ vim.o.undofile = true
 -- Indent blankline
 vim.opt.list = true
 vim.opt.listchars:append "eol:↴"
+
+--code folding
+utils.opt('o', 'foldcolumn', '1')
+utils.opt('o', 'foldlevel', 1)
+utils.opt('o', 'foldlevelstart', 99)
+utils.opt('o', 'foldenable', true)
+utils.opt('o', 'foldclose', 'all')
