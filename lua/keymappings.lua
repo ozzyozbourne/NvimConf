@@ -19,3 +19,9 @@ vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
 
 --UndoTree
 vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle, {})
+
+-- harpoon
+-- vim.keymap.set('n', '<leader>hx', require('harpoon.mark').add_file)
+vim.keymap.set('n', '<leader>hn', require('harpoon.ui').nav_next)
+vim.keymap.set('n', '<leader>hp', require('harpoon.ui').nav_prev)
+utils.map('n', [[<leader>hm]], ':Telescope harpoon marks<CR>')

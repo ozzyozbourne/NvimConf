@@ -68,6 +68,6 @@ return {
         dependencies = { 'kevinhwang91/promise-async' },
     },
     { 'akinsho/bufferline.nvim', version = "*", dependencies = 'nvim-tree/nvim-web-devicons' },
-
+    { 'ThePrimeagen/harpoon' },
 
 }
