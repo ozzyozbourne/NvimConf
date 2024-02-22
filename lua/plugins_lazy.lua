@@ -63,5 +63,11 @@ return {
     { "lukas-reineke/indent-blankline.nvim", tag = "v3.5.3",                            main = "ibl", opts = {} },
     { 'mbbill/undotree' },
     { 'windwp/nvim-autopairs',               event = "InsertEnter",                     opts = {} },
+    {
+        'kevinhwang91/nvim-ufo',
+        dependencies = { 'kevinhwang91/promise-async' },
+    },
+    { 'akinsho/bufferline.nvim', version = "*", dependencies = 'nvim-tree/nvim-web-devicons' },
+
 
 }

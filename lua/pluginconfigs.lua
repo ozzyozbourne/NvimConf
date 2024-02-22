@@ -303,3 +303,23 @@ require('Comment').setup()
 
 -- indent blankline
 require("ibl").setup()
+
+
+--UFO
+require('ufo').setup()
+
+-- Bufferline
+require("bufferline").setup {
+    options = {
+        mode = 'buffers',
+        -- diagnostics = 'coc',
+        offsets = {
+            {
+                filetype = "NvimTree",
+                text = "File Explorer",
+                highlight = "Directory",
+                separator = true,
+            }
+        },
+    },
+}

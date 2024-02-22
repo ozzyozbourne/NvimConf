@@ -4,6 +4,12 @@ local wk = require("which-key")
 -- Neo Tree Key Mappings
 utils.map('n', [[<C-n>]], ':Neotree toggle<CR>')
 
+-- bufferline
+vim.keymap.set('n', '<leader>bl', vim.cmd.BufferLinePick)
+vim.keymap.set('n', '<leader>bq', vim.cmd.BufferLineCloseOthers)
+vim.keymap.set('n', [[<C-g>]], vim.cmd.BufferLineCycleNext)
+
+
 -- telescope keymappings
 local builtin = require('telescope.builtin')
 vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
