@@ -35,3 +35,5 @@ utils.opt('o', 'foldlevel', 1)
 utils.opt('o', 'foldlevelstart', 99)
 utils.opt('o', 'foldenable', true)
 utils.opt('o', 'foldclose', 'all')
+
+vim.o.clipboard = "unnamedplus"
