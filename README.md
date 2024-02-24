@@ -1,5 +1,5 @@
 
-# NeoVim Configuration with Lazy Plugin Manager
+# My Current NeoVim Configuration 
 
 This is my personal NeoVim configuration, utilizing the Lazy plugin manager for easy and efficient plugin management.
 
@@ -37,25 +37,9 @@ This is my personal NeoVim configuration, utilizing the Lazy plugin manager for 
 
 ## Plugins Included
 
-
-### [mason](https://github.com/williamboman/mason.nvim)
-LSP installation and management
+- **[mason](https://github.com/williamboman/mason.nvim)**LSP installation and management
 ### [tree-sitter](https://github.com/nvim-treesitter/nvim-treesitter)
 Syntax Highlighting
-### [mason](https://github.com/williamboman/mason.nvim)
-### [mason](https://github.com/williamboman/mason.nvim)
-### [mason](https://github.com/williamboman/mason.nvim)
-### [mason](https://github.com/williamboman/mason.nvim)
-### [mason](https://github.com/williamboman/mason.nvim)
-### [mason](https://github.com/williamboman/mason.nvim)
-### [mason](https://github.com/williamboman/mason.nvim)
-### [mason](https://github.com/williamboman/mason.nvim)
-### [mason](https://github.com/williamboman/mason.nvim)
-### [mason](https://github.com/williamboman/mason.nvim)
-### [mason](https://github.com/williamboman/mason.nvim)
-### [mason](https://github.com/williamboman/mason.nvim)
-### [mason](https://github.com/williamboman/mason.nvim)
-### [mason](https://github.com/williamboman/mason.nvim)
 
 
 ## Additional Customization
