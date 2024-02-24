@@ -37,7 +37,7 @@ This is my personal NeoVim configuration, utilizing the Lazy plugin manager for 
 
 ## Plugins Included
 
-- **[mason](https://github.com/williamboman/mason.nvim)**LSP installation and management
+- [mason](https://github.com/williamboman/mason.nvim):LSP installation and management
 ### [tree-sitter](https://github.com/nvim-treesitter/nvim-treesitter)
 Syntax Highlighting
 
