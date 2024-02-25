@@ -39,7 +39,12 @@ This is my personal NeoVim configuration, utilizing the Lazy plugin manager for 
 
 - [mason](https://github.com/williamboman/mason.nvim): LSP installation and management
 - [tree-sitter](https://github.com/nvim-treesitter/nvim-treesitter): Syntax Highlighting
-
+- [toggle term](https://github.com/akinsho/toggleterm.nvim): Integrated Terminal
+- [which key](https://github.com/akinsho/toggleterm.nvim): Configurable key binding legend
+- [noe tree](https://github.com/nvim-neo-tree/neo-tree.nvim): file tree system
+- [nvim java](https://github.com/nvim-java/nvim-java): Java lsp setup 
+- [nvim cmp](https://github.com/hrsh7th/nvim-cmp): snippets and lsp completions
+- []
 
 ## Additional Customization
 
