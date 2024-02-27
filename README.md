@@ -44,7 +44,10 @@ This is my personal NeoVim configuration, utilizing the Lazy plugin manager for 
 - [noe tree](https://github.com/nvim-neo-tree/neo-tree.nvim): file tree system
 - [nvim java](https://github.com/nvim-java/nvim-java): Java lsp setup 
 - [nvim cmp](https://github.com/hrsh7th/nvim-cmp): snippets and lsp completions
-- []
+- [mason](https://github.com/williamboman/mason.nvim): LSP manager
+- [telescope](https://github.com/nvim-telescope/telescope.nvim): Fuzzy Finder
+- [format on save](https://github.com/elentok/format-on-save.nvim):Configurable auto formatting on save 
+- [auto save](https://github.com/0x00-ketsu/autosave.nvim): Configurable auto save trigger
 
 ## Additional Customization
 
