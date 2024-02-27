@@ -46,8 +46,11 @@ This is my personal NeoVim configuration, utilizing the Lazy plugin manager for 
 - [nvim cmp](https://github.com/hrsh7th/nvim-cmp): snippets and lsp completions
 - [mason](https://github.com/williamboman/mason.nvim): LSP manager
 - [telescope](https://github.com/nvim-telescope/telescope.nvim): Fuzzy Finder
-- [format on save](https://github.com/elentok/format-on-save.nvim):Configurable auto formatting on save 
+- [format on save](https://github.com/elentok/format-on-save.nvim): Configurable auto formatting on save 
 - [auto save](https://github.com/0x00-ketsu/autosave.nvim): Configurable auto save trigger
+- [Comment](https://github.com/numToStr/Comment.nvim): Comments code with ease
+- [ident blank line](https://github.com/lukas-reineke/indent-blankline.nvim): Configurable identation
+- [undotree](https://github.com/mbbill/undotree): Undo history visualizer 
 
 ## Additional Customization
 
