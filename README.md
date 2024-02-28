@@ -48,9 +48,13 @@ This is my personal NeoVim configuration, utilizing the Lazy plugin manager for 
 - [telescope](https://github.com/nvim-telescope/telescope.nvim): Fuzzy Finder
 - [format on save](https://github.com/elentok/format-on-save.nvim): Configurable auto formatting on save 
 - [auto save](https://github.com/0x00-ketsu/autosave.nvim): Configurable auto save trigger
-- [Comment](https://github.com/numToStr/Comment.nvim): Comments code with ease
-- [ident blank line](https://github.com/lukas-reineke/indent-blankline.nvim): Configurable identation
+- [comment](https://github.com/numToStr/Comment.nvim): Comments code with ease
+- [indent blank line](https://github.com/lukas-reineke/indent-blankline.nvim): Configurable identation
 - [undotree](https://github.com/mbbill/undotree): Undo history visualizer 
+- [auto-pairs](https://github.com/windwp/nvim-autopairs): Configurable auto-pairs 
+- [ufo](https://github.com/kevinhwang91/nvim-ufo): Configurable code folding
+- [bufferline](https://github.com/akinsho/bufferline.nvim): Enable tabs in nvim
+- [harpoon](https://github.com/ThePrimeagen/harpoon): Quick Navigation
 
 ## Additional Customization
 
