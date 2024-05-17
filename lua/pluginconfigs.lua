@@ -40,7 +40,6 @@ require 'nvim-treesitter.configs'.setup {
         "glsl",
         "gomod",
         "haskell",
-        "latex",
         "robot",
         "scala",
         "svelte",
