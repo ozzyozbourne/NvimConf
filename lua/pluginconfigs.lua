@@ -348,3 +348,18 @@ require('harpoon').setup({
 
 -- Harpoon telescope extension
 require('telescope').load_extension('harpoon')
+
+require('lspsaga').setup({
+    lightbulb = {
+        enable = false,
+    },
+})
+
+require('spectre').setup({
+    result_padding = '',
+    default = {
+        replace = {
+            cmd = "sed"
+        }
+    }
+})
