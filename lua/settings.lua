@@ -23,6 +23,7 @@ utils.opt('o', 'clipboard', 'unnamed,unnamedplus')
 vim.o.timeout = true
 vim.o.timeoutlen = 300
 vim.o.mouse = ''
+-- undotree
 vim.o.undofile = true
 
 -- Indent blankline

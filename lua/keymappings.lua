@@ -53,3 +53,28 @@ vim.keymap.set('v', '<leader>sw', '<esc><cmd>lua require("spectre").open_visual(
 vim.keymap.set('n', '<leader>sf', '<cmd>lua require("spectre").open_file_search({select_word=true})<CR>', {
     desc = "Search on current file"
 })
+
+
+wk.register({
+    g = {
+        name = "Gitsigns",
+        s = { "<cmd>lua require('gitsigns').stage_hunk()<cr>", "Stage Hunk" },
+        u = { "<cmd>lua require('gitsigns').undo_stage_hunk()<cr>", "Undo Stage Hunk" },
+        r = { "<cmd>lua require('gitsigns').reset_hunk()<cr>", "Reset Hunk" },
+        p = { "<cmd>lua require('gitsigns').preview_hunk()<cr>", "Preview Hunk" },
+        b = { "<cmd>lua require('gitsigns').blame_line()<cr>", "Blame Line" },
+        f = { "<cmd>lua require('gitsigns').diffthis('~1')<cr>", "Diff This" },
+        n = { "<cmd>lua require('gitsigns').next_hunk()<cr>", "Blame Line" },
+    }
+}, { prefix = "<leader>" })
+
+wk.register({
+    m = {
+        name = "Visual Multi",
+        a = { "<Plug>(VM-Select-All)<Tab>", "Select All", mode = { "n" } },
+        r = { "<Plug>(VM-Start-Regex-Search)", "Start Regex Search", mode = { "n" } },
+        p = { "<Plug>(VM-Add-Cursor-At-Pos)", "Add Cursor At Pos", mode = { "n" } },
+        v = { visual_cursors_with_delay, "Visual Cursors", mode = { "v" } },
+        o = { "<Plug>(VM-Toggle-Mappings)", "Toggle Mapping", mode = { "n" } },
+    }
+}, { prefix = "<leader>" })
