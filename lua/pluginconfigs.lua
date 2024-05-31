@@ -187,7 +187,24 @@ require('lualine').setup({
 require('java').setup()
 
 require('mason').setup()
-require('mason-lspconfig').setup()
+require('mason-lspconfig').setup {
+    ensure_installed = {
+        "lua_ls",
+        "rust_analyzer",
+        "gopls",
+        "clangd",
+        "elixirls",
+        "erlangls",
+        "pylsp",
+        "zls",
+        "sqls",
+        "tsserver",
+        "htmx",
+        "html",
+        "emmet_language_server",
+        "dockerls",
+    },
+}
 require("mason-lspconfig").setup_handlers {
     -- The first entry (without a key) will be the default handler
     -- and will be called for each installed server that doesn't have
@@ -196,7 +213,11 @@ require("mason-lspconfig").setup_handlers {
         require("lspconfig")[server_name].setup {}
     end,
 }
-
+require("lspconfig").clangd.setup {
+    on_attach = function(client, bufnr)
+        client.server_capabilities.signatureHelpProvider = false
+    end,
+}
 require('lspmappings')
 
 local cmp = require('cmp')
@@ -365,3 +386,10 @@ require('spectre').setup({
 
 require('gitsigns').setup({})
 vim.cmd "set statusline+=%{get(b:,'gitsigns_status','')}"
+
+local null_ls = require("null-ls")
+null_ls.setup({
+    sources = {
+        null_ls.builtins.formatting.clang_format,
+    },
+})
