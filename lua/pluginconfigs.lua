@@ -353,7 +353,7 @@ format_on_save.setup({
         elixir = formatters.lsp,
         c = formatters.lsp,
         cpp = formatters.lsp,
-        m = formatters.lsp,
+        objc = formatters.lsp,
         css = formatters.lsp,
         html = formatters.lsp,
         java = formatters.lsp,
@@ -470,13 +470,6 @@ require('spectre').setup({
 
 require('gitsigns').setup({})
 vim.cmd "set statusline+=%{get(b:,'gitsigns_status','')}"
-
-local null_ls = require("null-ls")
-null_ls.setup({
-    sources = {
-        null_ls.builtins.formatting.clang_format,
-    },
-})
 
 local dap_ok, dap = pcall(require, "dap")
 if not (dap_ok) then
