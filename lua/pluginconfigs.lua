@@ -187,6 +187,12 @@ require('lualine').setup({
 require('java').setup()
 
 require('mason').setup()
+require("mason-nvim-dap").setup({
+    ensure_installed = { "codelldb", }
+})
+require("mason-null-ls").setup({
+    ensure_installed = { "clang-format", }
+})
 require('mason-lspconfig').setup {
     ensure_installed = {
         "lua_ls",
@@ -211,11 +217,6 @@ require("mason-lspconfig").setup_handlers {
     -- a dedicated handler.
     function(server_name) -- default handler (optional)
         require("lspconfig")[server_name].setup {}
-    end,
-}
-require("lspconfig").clangd.setup {
-    on_attach = function(client, bufnr)
-        client.server_capabilities.signatureHelpProvider = false
     end,
 }
 require('lspmappings')
@@ -270,6 +271,9 @@ format_on_save.setup({
         ".local/share/nvim/lazy",
     },
     formatter_by_ft = {
+        c = formatters.lsp,
+        cpp = formatters.lsp,
+        m = formatters.lsp,
         css = formatters.lsp,
         html = formatters.lsp,
         java = formatters.lsp,
@@ -393,3 +397,23 @@ null_ls.setup({
         null_ls.builtins.formatting.clang_format,
     },
 })
+
+require("dapui").setup({
+    config = function()
+        local dap, dapui = require("dap"), require("dapui")
+        dap.listeners.before.attach.dapui_config = function()
+            dapui.open()
+        end
+        dap.listeners.before.launch.dapui_config = function()
+            dapui.open()
+        end
+        dap.listeners.before.event_terminated.dapui_config = function()
+            dapui.close()
+        end
+        dap.listeners.before.event_exited.dapui_config = function()
+            dapui.close()
+        end
+    end
+}
+)
+require("nvim-dap-virtual-text").setup()

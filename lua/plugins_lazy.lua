@@ -101,4 +101,29 @@ return {
         end,
     },
     { 'jose-elias-alvarez/null-ls.nvim' },
+    { 'mfussenegger/nvim-dap' },
+    {
+        'jay-babu/mason-nvim-dap.nvim',
+        dependencies = {
+            'williamboman/mason.nvim',
+            'mfussenegger/nvim-dap',
+        },
+
+    },
+    {
+        'rcarriga/nvim-dap-ui',
+        dependencies = {
+            'mfussenegger/nvim-dap',
+            'nvim-neotest/nvim-nio',
+        },
+    },
+    { 'theHamsta/nvim-dap-virtual-text' },
+    {
+        'jay-babu/mason-null-ls.nvim',
+        event = { 'BufReadPre', 'BufNewFile' },
+        dependencies = {
+            'williamboman/mason.nvim',
+            'nvimtools/none-ls.nvim',
+        },
+    },
 }

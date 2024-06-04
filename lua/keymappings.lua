@@ -78,3 +78,15 @@ wk.register({
         o = { "<Plug>(VM-Toggle-Mappings)", "Toggle Mapping", mode = { "n" } },
     }
 }, { prefix = "<leader>" })
+
+local dap = require('dap')
+vim.keymap.set("n", "<leader>db", dap.toggle_breakpoint)
+vim.keymap.set("n", "<leader>dr", dap.run_to_cursor)
+
+local dap = require('dap')
+vim.keymap.set("n", "<F1>", dap.continue)
+vim.keymap.set("n", "<F2>", dap.step_into)
+vim.keymap.set("n", "<F3>", dap.step_over)
+vim.keymap.set("n", "<F4>", dap.step_out)
+vim.keymap.set("n", "<F5>", dap.step_back)
+vim.keymap.set("n", "<F13>", dap.restart)
