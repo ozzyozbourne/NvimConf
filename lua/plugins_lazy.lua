@@ -127,4 +127,5 @@ return {
         },
     },
     { 'rcarriga/nvim-notify' },
+    { 'mfussenegger/nvim-lint' },
 }
