@@ -351,6 +351,7 @@ format_on_save.setup({
     formatter_by_ft = {
         zig = formatters.lsp,
         elixir = formatters.lsp,
+        erlang = formatters.lsp,
         c = formatters.lsp,
         cpp = formatters.lsp,
         objc = formatters.lsp,
@@ -372,6 +373,7 @@ format_on_save.setup({
         typescriptreact = formatters.prettierd,
         yaml = formatters.lsp,
         go = formatters.lsp,
+        toml = formatters.lsp,
     },
 })
 
