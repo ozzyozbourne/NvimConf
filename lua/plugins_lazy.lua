@@ -126,4 +126,5 @@ return {
             'nvimtools/none-ls.nvim',
         },
     },
+    { 'rcarriga/nvim-notify' },
 }
