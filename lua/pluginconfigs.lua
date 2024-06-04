@@ -187,7 +187,37 @@ require('lualine').setup({
 require('java').setup()
 
 require('mason').setup()
-require('mason-lspconfig').setup()
+require("mason-nvim-dap").setup({
+    automatic_setup = true,
+    ensure_installed = {
+        "codelldb",
+        "delve",
+    }
+})
+require("mason-null-ls").setup({
+    ensure_installed = {
+        "clang-format",
+        "gofumpt",
+    }
+})
+require('mason-lspconfig').setup {
+    ensure_installed = {
+        "lua_ls",
+        "rust_analyzer",
+        "gopls",
+        "clangd",
+        "elixirls",
+        "erlangls",
+        "pylsp",
+        "zls",
+        "sqls",
+        "tsserver",
+        "htmx",
+        "html",
+        "emmet_language_server",
+        "dockerls",
+    },
+}
 require("mason-lspconfig").setup_handlers {
     -- The first entry (without a key) will be the default handler
     -- and will be called for each installed server that doesn't have
@@ -195,6 +225,61 @@ require("mason-lspconfig").setup_handlers {
     function(server_name) -- default handler (optional)
         require("lspconfig")[server_name].setup {}
     end,
+}
+
+
+
+require('dap').set_log_level('INFO')
+
+local dap = require('dap')
+local codelldb = require('mason-registry').get_package('codelldb'):get_install_path() .. '/codelldb'
+
+dap.configurations = {
+    go = {
+        {
+            type = "go",         -- Which adapter to use
+            name = "Debug",      -- Human readable name
+            request = "launch",  -- Whether to "launch" or "attach" to program
+            program = "${file}", -- The buffer you are focused on when running nvim-dap
+        },
+    },
+}
+
+dap.configurations.cpp = {
+    {
+        name = 'Debug with codelldb',
+        type = 'codelldb',
+        request = 'launch',
+        program = function()
+            return vim.fn.input({
+                prompt = 'Path to executable: ',
+                default = vim.fn.getcwd() .. '/',
+                completion = 'file',
+            })
+        end,
+        cwd = '${workspaceFolder}',
+        stopOnEntry = false,
+    },
+}
+
+dap.configurations.c = dap.configurations.cpp
+dap.configurations.zig = dap.configurations.cpp
+
+dap.adapters.codelldb = {
+    type = 'server',
+    port = '${port}',
+    executable = {
+        command = codelldb,
+        args = { '--port', '${port}' },
+    },
+}
+dap.adapters.go = {
+    type = "server",
+    port = "${port}",
+    executable = {
+        command = vim.fn.stdpath("data") .. '/mason/bin/dlv',
+        args = { "dap", "-l", "127.0.0.1:${port}" },
+    },
 }
 
 require('lspmappings')
@@ -249,6 +334,11 @@ format_on_save.setup({
         ".local/share/nvim/lazy",
     },
     formatter_by_ft = {
+        zig = formatters.lsp,
+        elixir = formatters.lsp,
+        c = formatters.lsp,
+        cpp = formatters.lsp,
+        m = formatters.lsp,
         css = formatters.lsp,
         html = formatters.lsp,
         java = formatters.lsp,
@@ -365,3 +455,65 @@ require('spectre').setup({
 
 require('gitsigns').setup({})
 vim.cmd "set statusline+=%{get(b:,'gitsigns_status','')}"
+
+local null_ls = require("null-ls")
+null_ls.setup({
+    sources = {
+        null_ls.builtins.formatting.clang_format,
+    },
+})
+
+local dap_ok, dap = pcall(require, "dap")
+if not (dap_ok) then
+    print("nvim-dap not installed!")
+    return
+end
+
+local dap_ui_ok, ui = pcall(require, "dapui")
+if not (dap_ok and dap_ui_ok) then
+    require("notify")("dap-ui not installed!", "warning")
+    return
+end
+
+ui.setup({
+    icons = { expanded = "▾", collapsed = "▸" },
+    mappings = {
+        open = "o",
+        remove = "d",
+        edit = "e",
+        repl = "r",
+        toggle = "t",
+    },
+    expand_lines = vim.fn.has("nvim-0.7"),
+    layouts = {
+        {
+            elements = {
+                "scopes",
+            },
+            size = 0.3,
+            position = "right"
+        },
+        {
+            elements = {
+                "repl",
+                "breakpoints"
+            },
+            size = 0.3,
+            position = "bottom",
+        },
+    },
+    floating = {
+        max_height = nil,
+        max_width = nil,
+        border = "single",
+        mappings = {
+            close = { "q", "<Esc>" },
+        },
+    },
+    windows = { indent = 1 },
+    render = {
+        max_type_length = nil,
+    },
+})
+
+require("nvim-dap-virtual-text").setup()
