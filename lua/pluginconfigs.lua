@@ -4,29 +4,21 @@ require 'nvim-treesitter.configs'.setup {
     -- should always be installed)
     ensure_installed = {
         "bash",
-        "fish",
         "lua",
         "markdown",
-        "regex",
-        "vimdoc",
-        "query",
         "javascript",
         "cmake",
         "css",
         "cpp",
         "dockerfile",
-        "elixir",
-        "erlang",
         "gitignore",
         "go",
         "gosum",
         "html",
         "java",
         "json",
-        "kotlin",
         "make",
         "proto",
-        "heex",
         "sql",
         "toml",
         "typescript",
@@ -34,14 +26,8 @@ require 'nvim-treesitter.configs'.setup {
         "zig",
         "rust",
         "python",
-        "r",
-        "julia",
-        "elm",
         "glsl",
         "gomod",
-        "haskell",
-        "robot",
-        "scala",
         "svelte",
         "gitignore",
         "gitattributes",
@@ -206,8 +192,6 @@ require('mason-lspconfig').setup {
         "rust_analyzer",
         "gopls",
         "clangd",
-        "elixirls",
-        "erlangls",
         "pylsp",
         "zls",
         "sqls",
@@ -241,6 +225,21 @@ dap.configurations = {
             name = "Debug",      -- Human readable name
             request = "launch",  -- Whether to "launch" or "attach" to program
             program = "${file}", -- The buffer you are focused on when running nvim-dap
+        },
+        {
+            type = "delve",
+            name = "Debug test", -- configuration for debugging test files
+            request = "launch",
+            mode = "test",
+            program = "${file}"
+        },
+        -- works with go.mod packages and sub packages
+        {
+            type = "delve",
+            name = "Debug test (go.mod)",
+            request = "launch",
+            mode = "test",
+            program = "./${relativeFileDirname}"
         },
     },
 }
@@ -335,10 +334,9 @@ format_on_save.setup({
     },
     formatter_by_ft = {
         zig = formatters.lsp,
-        elixir = formatters.lsp,
         c = formatters.lsp,
         cpp = formatters.lsp,
-        m = formatters.lsp,
+        objc = formatters.lsp,
         css = formatters.lsp,
         html = formatters.lsp,
         java = formatters.lsp,
@@ -346,17 +344,15 @@ format_on_save.setup({
         json = formatters.lsp,
         lua = formatters.lsp,
         markdown = formatters.prettierd,
-        openscad = formatters.lsp,
         python = formatters.black,
         rust = formatters.lsp,
-        scad = formatters.lsp,
-        scss = formatters.lsp,
         sh = formatters.shfmt,
         terraform = formatters.lsp,
         typescript = formatters.prettierd,
         typescriptreact = formatters.prettierd,
         yaml = formatters.lsp,
         go = formatters.lsp,
+        toml = formatters.lsp,
     },
 })
 
@@ -455,13 +451,6 @@ require('spectre').setup({
 
 require('gitsigns').setup({})
 vim.cmd "set statusline+=%{get(b:,'gitsigns_status','')}"
-
-local null_ls = require("null-ls")
-null_ls.setup({
-    sources = {
-        null_ls.builtins.formatting.clang_format,
-    },
-})
 
 local dap_ok, dap = pcall(require, "dap")
 if not (dap_ok) then

@@ -100,7 +100,6 @@ return {
             vim.g.VM_add_cursor_at_pos_no_mappings = 1
         end,
     },
-    { 'jose-elias-alvarez/null-ls.nvim' },
     { 'mfussenegger/nvim-dap' },
     {
         'jay-babu/mason-nvim-dap.nvim',
@@ -127,4 +126,5 @@ return {
         },
     },
     { 'rcarriga/nvim-notify' },
+    { 'mfussenegger/nvim-lint' },
 }
