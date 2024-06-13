@@ -20,29 +20,6 @@ return {
         dependencies = { 'nvim-tree/nvim-web-devicons' }
     },
 
-    {
-        'nvim-java/nvim-java',
-        dependencies = {
-            'nvim-java/lua-async-await',
-            'nvim-java/nvim-java-core',
-            'nvim-java/nvim-java-refactor',
-            'nvim-java/nvim-java-test',
-            'nvim-java/nvim-java-dap',
-            'MunifTanjim/nui.nvim',
-            'neovim/nvim-lspconfig',
-            'mfussenegger/nvim-dap',
-            {
-                'williamboman/mason.nvim',
-                opts = {
-                    registries = {
-                        'github:nvim-java/mason-registry',
-                        'github:mason-org/mason-registry',
-                    },
-                },
-            }
-        },
-    },
-
     --nvim-cmp
     { 'hrsh7th/cmp-buffer' },
     { 'hrsh7th/cmp-path' },
@@ -99,31 +76,6 @@ return {
             }
             vim.g.VM_add_cursor_at_pos_no_mappings = 1
         end,
-    },
-    { 'mfussenegger/nvim-dap' },
-    {
-        'jay-babu/mason-nvim-dap.nvim',
-        dependencies = {
-            'williamboman/mason.nvim',
-            'mfussenegger/nvim-dap',
-        },
-
-    },
-    {
-        'rcarriga/nvim-dap-ui',
-        dependencies = {
-            'mfussenegger/nvim-dap',
-            'nvim-neotest/nvim-nio',
-        },
-    },
-    { 'theHamsta/nvim-dap-virtual-text' },
-    {
-        'jay-babu/mason-null-ls.nvim',
-        event = { 'BufReadPre', 'BufNewFile' },
-        dependencies = {
-            'williamboman/mason.nvim',
-            'nvimtools/none-ls.nvim',
-        },
     },
     { 'rcarriga/nvim-notify' },
     { 'mfussenegger/nvim-lint' },
