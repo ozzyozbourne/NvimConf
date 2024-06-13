@@ -27,6 +27,7 @@ require 'nvim-treesitter.configs'.setup {
         "rust",
         "python",
         "glsl",
+        "wgsl",
         "gomod",
         "svelte",
         "gitignore",
@@ -333,6 +334,8 @@ format_on_save.setup({
         ".local/share/nvim/lazy",
     },
     formatter_by_ft = {
+        glsl = formatters.lsp,
+        wgsl = formatters.lsp,
         zig = formatters.lsp,
         c = formatters.lsp,
         cpp = formatters.lsp,
