@@ -19,6 +19,8 @@ utils.opt('o', 'wildmode', 'list:longest')
 utils.opt('w', 'relativenumber', true)
 utils.opt('o', 'clipboard', 'unnamed,unnamedplus')
 
+-- zig zls 
+vim.g.zig_fmt_autosave = 0
 -- which-key
 vim.o.timeout = true
 vim.o.timeoutlen = 300

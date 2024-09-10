@@ -27,8 +27,8 @@ require 'nvim-treesitter.configs'.setup {
         "rust",
         "python",
         "glsl",
+        "wgsl",
         "gomod",
-        "svelte",
         "gitignore",
         "gitattributes",
         "cpp",
@@ -195,21 +195,19 @@ require('mason-lspconfig').setup {
         "pylsp",
         "zls",
         "sqls",
-        "tsserver",
+        "ts_ls",
         "htmx",
         "html",
         "emmet_language_server",
         "dockerls",
     },
 }
-require("mason-lspconfig").setup_handlers {
-    -- The first entry (without a key) will be the default handler
-    -- and will be called for each installed server that doesn't have
-    -- a dedicated handler.
-    function(server_name) -- default handler (optional)
+require("mason-lspconfig").setup_handlers({
+    -- Default handler for servers that don't have a dedicated handler
+    function(server_name)
         require("lspconfig")[server_name].setup {}
     end,
-}
+})
 
 
 
@@ -262,7 +260,6 @@ dap.configurations.cpp = {
 }
 
 dap.configurations.c = dap.configurations.cpp
-dap.configurations.zig = dap.configurations.cpp
 
 dap.adapters.codelldb = {
     type = 'server',
@@ -333,7 +330,8 @@ format_on_save.setup({
         ".local/share/nvim/lazy",
     },
     formatter_by_ft = {
-        zig = formatters.lsp,
+        glsl = formatters.lsp,
+        wgsl = formatters.lsp,
         c = formatters.lsp,
         cpp = formatters.lsp,
         objc = formatters.lsp,
