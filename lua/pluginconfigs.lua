@@ -34,6 +34,7 @@ require 'nvim-treesitter.configs'.setup {
         "cpp",
         "c",
         "sql",
+        "svelte",
     },
 
     -- Install parsers synchronously
@@ -332,7 +333,7 @@ format_on_save.setup({
     formatter_by_ft = {
         glsl = formatters.lsp,
         wgsl = formatters.lsp,
-        c = formatters.lsp,
+        -- c = formatters.lsp,
         cpp = formatters.lsp,
         objc = formatters.lsp,
         css = formatters.lsp,
@@ -351,6 +352,7 @@ format_on_save.setup({
         yaml = formatters.lsp,
         go = formatters.lsp,
         toml = formatters.lsp,
+        json = formatters.lsp,
     },
 })
 
