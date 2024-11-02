@@ -405,37 +405,41 @@ require("bufferline").setup {
 }
 
 
-require("nvim-metals").setup({
+local function setup_metals()
+    local config = {
+        ft = { "scala", "sbt", "java" },
+        opts = function()
+            local metals_config = require("metals").bare_config()
+            metals_config.settings = {
+                showImplicitArguments = true,
+                showImplicitConversionsAndClasses = true,
+                showInferredType = true,
+                superMethodLensesEnabled = true,
+                metalsBinaryPath = "/Users/ozzy/Library/Application Support/Coursier/bin/metals"
+            }
+            metals_config.capabilities = vim.lsp.protocol.make_client_capabilities()
+            metals_config.capabilities = require("cmp_nvim_lsp").default_capabilities(metals_config.capabilities)
+            return metals_config
+        end,
+        config = function(self, metals_config)
+            local nvim_metals_group = vim.api.nvim_create_augroup("nvim-metals", { clear = true })
+            vim.api.nvim_create_autocmd("FileType", {
+                pattern = self.ft,
+                callback = function()
+                    require("metals").initialize_or_attach(metals_config)
+                end,
+                group = nvim_metals_group,
+            })
+        end
+    }
 
-    ft = { "scala", "sbt", "java" },
-    opts = function()
-        local metals_config = require("metals").bare_config()
-        metals_config.settings = {
-            showImplicitArguments = true,
-            showImplicitConversionsAndClasses = true,
-            showInferredType = true,
-            superMethodLensesEnabled = true,
-            metalsBinaryPath = "/Users/ozzy/Library/Application Support/Coursier/bin/metals"
-        }
+    -- Execute the configuration
+    local metals_config = config.opts()
+    config.config(config, metals_config)
+end
 
-        metals_config.capabilities = vim.lsp.protocol.make_client_capabilities()
-        metals_config.capabilities = require("cmp_nvim_lsp").default_capabilities(metals_config.capabilities)
-
-
-        return metals_config
-    end,
-    config = function(self, metals_config)
-        local nvim_metals_group = vim.api.nvim_create_augroup("nvim-metals", { clear = true })
-        vim.api.nvim_create_autocmd("FileType", {
-            pattern = self.ft,
-            callback = function()
-                require("metals").initialize_or_attach(metals_config)
-            end,
-            group = nvim_metals_group,
-        })
-    end
-})
-
+-- Call the setup function
+setup_metals()
 
 
 -- Harpoon
