@@ -35,6 +35,7 @@ require 'nvim-treesitter.configs'.setup {
         "c",
         "sql",
         "svelte",
+        "scala",
     },
 
     -- Install parsers synchronously
@@ -69,6 +70,7 @@ require("toggleterm").setup {
     -- This field is only relevant if direction is set to 'float'
     float_opts = { border = 'curved' },
 }
+
 
 -- which-key
 require("which-key").setup {
@@ -341,6 +343,7 @@ format_on_save.setup({
         java = formatters.lsp,
         javascript = formatters.lsp,
         json = formatters.lsp,
+        jsonc = formatters.lsp,
         lua = formatters.lsp,
         markdown = formatters.prettierd,
         python = formatters.black,
@@ -352,7 +355,7 @@ format_on_save.setup({
         yaml = formatters.lsp,
         go = formatters.lsp,
         toml = formatters.lsp,
-        json = formatters.lsp,
+        scala = formatters.lsp,
     },
 })
 
@@ -400,6 +403,39 @@ require("bufferline").setup {
         },
     },
 }
+
+
+require("nvim-metals").setup({
+
+    ft = { "scala", "sbt", "java" },
+    opts = function()
+        local metals_config = require("metals").bare_config()
+        metals_config.settings = {
+            showImplicitArguments = true,
+            showImplicitConversionsAndClasses = true,
+            showInferredType = true,
+            superMethodLensesEnabled = true,
+            metalsBinaryPath = "/Users/ozzy/Library/Application Support/Coursier/bin/metals"
+        }
+
+        metals_config.capabilities = vim.lsp.protocol.make_client_capabilities()
+        metals_config.capabilities = require("cmp_nvim_lsp").default_capabilities(metals_config.capabilities)
+
+
+        return metals_config
+    end,
+    config = function(self, metals_config)
+        local nvim_metals_group = vim.api.nvim_create_augroup("nvim-metals", { clear = true })
+        vim.api.nvim_create_autocmd("FileType", {
+            pattern = self.ft,
+            callback = function()
+                require("metals").initialize_or_attach(metals_config)
+            end,
+            group = nvim_metals_group,
+        })
+    end
+})
+
 
 
 -- Harpoon
