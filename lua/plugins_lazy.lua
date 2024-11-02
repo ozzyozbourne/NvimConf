@@ -127,10 +127,4 @@ return {
     },
     { 'rcarriga/nvim-notify' },
     { 'mfussenegger/nvim-lint' },
-    {
-        "scalameta/nvim-metals",
-        dependencies = {
-            "nvim-lua/plenary.nvim",
-        },
-    },
 }
