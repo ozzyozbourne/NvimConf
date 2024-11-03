@@ -34,6 +34,8 @@ require 'nvim-treesitter.configs'.setup {
         "cpp",
         "c",
         "sql",
+        "svelte",
+        "scala",
     },
 
     -- Install parsers synchronously
@@ -68,6 +70,7 @@ require("toggleterm").setup {
     -- This field is only relevant if direction is set to 'float'
     float_opts = { border = 'curved' },
 }
+
 
 -- which-key
 require("which-key").setup {
@@ -332,7 +335,7 @@ format_on_save.setup({
     formatter_by_ft = {
         glsl = formatters.lsp,
         wgsl = formatters.lsp,
-        c = formatters.lsp,
+        -- c = formatters.lsp,
         cpp = formatters.lsp,
         objc = formatters.lsp,
         css = formatters.lsp,
@@ -340,6 +343,7 @@ format_on_save.setup({
         java = formatters.lsp,
         javascript = formatters.lsp,
         json = formatters.lsp,
+        jsonc = formatters.lsp,
         lua = formatters.lsp,
         markdown = formatters.prettierd,
         python = formatters.black,
@@ -351,6 +355,7 @@ format_on_save.setup({
         yaml = formatters.lsp,
         go = formatters.lsp,
         toml = formatters.lsp,
+        scala = formatters.lsp,
     },
 })
 
@@ -399,8 +404,6 @@ require("bufferline").setup {
     },
 }
 
-
--- Harpoon
 require('harpoon').setup({
     global_settings = {
         -- sets the marks upon calling `toggle` on the ui, instead of require `:w`.
