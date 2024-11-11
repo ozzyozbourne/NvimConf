@@ -196,7 +196,6 @@ require('mason-lspconfig').setup {
         "gopls",
         "clangd",
         "pylsp",
-        "zls",
         "sqls",
         "ts_ls",
         "htmx",
@@ -205,6 +204,31 @@ require('mason-lspconfig').setup {
         "dockerls",
     },
 }
+
+
+-- LSP setup with custom handler for zls
+local lspconfig = require('lspconfig')
+lspconfig.zls.setup({
+    cmd = { "/Users/ozzy/zls/zig-out/bin/zls" }, -- Uses zls from your PATH
+    -- If you need to specify a custom path, use:
+    -- cmd = { "/path/to/your/zls" },
+
+    settings = {
+        zig = {
+            -- Add any zls-specific settings here if needed
+            -- enableSemanticHighlighting = true,
+            -- enableInlayHints = true,
+        }
+    },
+
+    -- Optional: Add specific capabilities if you're using nvim-cmp
+    capabilities = vim.tbl_deep_extend(
+        "force",
+        vim.lsp.protocol.make_client_capabilities(),
+        require('cmp_nvim_lsp').default_capabilities()
+    ),
+})
+
 require("mason-lspconfig").setup_handlers({
     -- Default handler for servers that don't have a dedicated handler
     function(server_name)
@@ -335,7 +359,7 @@ format_on_save.setup({
     formatter_by_ft = {
         glsl = formatters.lsp,
         wgsl = formatters.lsp,
-        -- c = formatters.lsp,
+        cuda = formatters.lsp,
         cpp = formatters.lsp,
         objc = formatters.lsp,
         css = formatters.lsp,
