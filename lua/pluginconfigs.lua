@@ -6,6 +6,7 @@ require 'nvim-treesitter.configs'.setup {
         "bash",
         "lua",
         "markdown",
+        "markdown_inline",
         "javascript",
         "cmake",
         "css",
