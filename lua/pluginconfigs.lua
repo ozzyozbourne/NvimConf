@@ -224,6 +224,14 @@ require('mason-lspconfig').setup {
         "html",
         "emmet_language_server",
         "dockerls",
+        "dotls",
+        "elixirls",
+        "erlangls",
+        "wgsl_analyzer",
+        "gradle_ls",
+        "ols",
+        "protols",
+        "templ"
     },
 }
 
@@ -257,8 +265,6 @@ require("mason-lspconfig").setup_handlers({
         require("lspconfig")[server_name].setup {}
     end,
 })
-
-
 
 require('dap').set_log_level('INFO')
 
@@ -384,8 +390,9 @@ format_on_save.setup({
         cuda = formatters.lsp,
         cpp = formatters.lsp,
         objc = formatters.lsp,
-        css = formatters.lsp,
-        html = formatters.lsp,
+        css = formatters.prettierd,
+        scss = formatters.prettierd,
+        html = formatters.prettierd,
         java = formatters.lsp,
         javascript = formatters.lsp,
         json = formatters.lsp,
@@ -398,10 +405,14 @@ format_on_save.setup({
         terraform = formatters.lsp,
         typescript = formatters.prettierd,
         typescriptreact = formatters.prettierd,
-        yaml = formatters.lsp,
+        yaml = formatters.prettierd,
         go = formatters.lsp,
         toml = formatters.lsp,
         scala = formatters.lsp,
+        erlang = formatters.lsp,
+        elixir = formatters.lsp,
+        odin = formatters.lsp,
+
     },
 })
 
