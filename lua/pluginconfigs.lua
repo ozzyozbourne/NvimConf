@@ -58,7 +58,6 @@ require 'nvim-treesitter.configs'.setup {
         "scala",
         "odin",
         "dot",
-        "pony",
     },
 
     -- Install parsers synchronously
