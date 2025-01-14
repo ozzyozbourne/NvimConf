@@ -58,6 +58,7 @@ require 'nvim-treesitter.configs'.setup {
         "scala",
         "odin",
         "dot",
+        "pony",
     },
 
     -- Install parsers synchronously
@@ -224,6 +225,14 @@ require('mason-lspconfig').setup {
         "html",
         "emmet_language_server",
         "dockerls",
+        "dotls",
+        "elixirls",
+        "erlangls",
+        "wgsl_analyzer",
+        "gradle_ls",
+        "ols",
+        "protols",
+        "templ"
     },
 }
 
