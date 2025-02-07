@@ -7,31 +7,12 @@ require 'nvim-treesitter.configs'.setup {
         "lua",
         "markdown",
         "markdown_inline",
-        "javascript",
         "cmake",
-        "css",
         "cpp",
-        "dockerfile",
         "gitignore",
-        "go",
-        "gosum",
-        "html",
-        "java",
-        "json",
         "make",
-        "proto",
         "properties",
         "regex",
-        "jsdoc",
-        "typescript",
-        "yaml",
-        "zig",
-        "rust",
-        "python",
-        "glsl",
-        "wgsl",
-        "gomod",
-        "gitignore",
         "gitattributes",
         "c",
         "dot",
@@ -172,60 +153,18 @@ require('lualine').setup({
     extensions = {},
 })
 
-require('java').setup()
 
 require('mason').setup()
-require("mason-nvim-dap").setup({
-    automatic_setup = true,
-    ensure_installed = {
-        "codelldb",
-        "delve",
-    }
-})
-require("mason-null-ls").setup({
-    ensure_installed = {
-        "clang-format",
-        "gofumpt",
-    }
-})
 require('mason-lspconfig').setup {
     ensure_installed = {
         "lua_ls",
-        "rust_analyzer",
-        "gopls",
         "clangd",
-        "pylsp",
-        "ts_ls",
-        "html",
-        "emmet_language_server",
-        "dockerls",
-        "wgsl_analyzer",
     },
 }
 
 
 -- LSP setup with custom handler for zls
 local lspconfig = require('lspconfig')
-lspconfig.zls.setup({
-    cmd = { "/Users/ozzy/zls/zig-out/bin/zls" }, -- Uses zls from your PATH
-    -- If you need to specify a custom path, use:
-    -- cmd = { "/path/to/your/zls" },
-
-    settings = {
-        zig = {
-            -- Add any zls-specific settings here if needed
-            -- enableSemanticHighlighting = true,
-            -- enableInlayHints = true,
-        }
-    },
-
-    -- Optional: Add specific capabilities if you're using nvim-cmp
-    capabilities = vim.tbl_deep_extend(
-        "force",
-        vim.lsp.protocol.make_client_capabilities(),
-        require('cmp_nvim_lsp').default_capabilities()
-    ),
-})
 
 require("mason-lspconfig").setup_handlers({
     -- Default handler for servers that don't have a dedicated handler
@@ -234,7 +173,6 @@ require("mason-lspconfig").setup_handlers({
     end,
 })
 
-require('dap').set_log_level('INFO')
 
 require('lspmappings')
 
@@ -288,22 +226,7 @@ format_on_save.setup({
         ".local/share/nvim/lazy",
     },
     formatter_by_ft = {
-        glsl = formatters.lsp,
-        wgsl = formatters.lsp,
         cpp = formatters.lsp,
-        css = formatters.prettierd,
-        html = formatters.prettierd,
-        java = formatters.lsp,
-        javascript = formatters.lsp,
-        json = formatters.lsp,
-        jsonc = formatters.lsp,
-        lua = formatters.lsp,
-        markdown = formatters.prettierd,
-        python = formatters.black,
-        rust = formatters.lsp,
-        sh = formatters.shfmt,
-        typescript = formatters.prettierd,
-        go = formatters.lsp,
     },
 })
 
