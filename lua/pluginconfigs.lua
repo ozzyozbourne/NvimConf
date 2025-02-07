@@ -12,7 +12,6 @@ require 'nvim-treesitter.configs'.setup {
         "css",
         "cpp",
         "dockerfile",
-        "gitignore",
         "go",
         "gosum",
         "html",
