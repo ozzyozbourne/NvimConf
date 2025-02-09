@@ -10,14 +10,8 @@ require 'nvim-treesitter.configs'.setup {
         "javascript",
         "cmake",
         "css",
-        "scss",
         "cpp",
-        "csv",
-        "xml",
-        "erlang",
-        "elixir",
         "dockerfile",
-        "gitignore",
         "go",
         "gosum",
         "html",
@@ -26,21 +20,8 @@ require 'nvim-treesitter.configs'.setup {
         "make",
         "proto",
         "properties",
-        "cuda",
-        "fortran",
-        "heex",
-        "templ",
-        "gotmpl",
-        "objc",
-        "r",
         "regex",
-        "helm",
-        "terraform",
-        "sql",
-        "kotlin",
-        "nginx",
         "jsdoc",
-        "toml",
         "typescript",
         "yaml",
         "zig",
@@ -51,12 +32,7 @@ require 'nvim-treesitter.configs'.setup {
         "gomod",
         "gitignore",
         "gitattributes",
-        "cpp",
         "c",
-        "sql",
-        "svelte",
-        "scala",
-        "odin",
         "dot",
     },
 
@@ -218,12 +194,11 @@ require('mason-lspconfig').setup {
         "gopls",
         "clangd",
         "pylsp",
-        "sqls",
         "ts_ls",
-        "htmx",
         "html",
         "emmet_language_server",
         "dockerls",
+        "wgsl_analyzer",
     },
 }
 
@@ -258,74 +233,7 @@ require("mason-lspconfig").setup_handlers({
     end,
 })
 
-
-
 require('dap').set_log_level('INFO')
-
-local dap = require('dap')
-local codelldb = require('mason-registry').get_package('codelldb'):get_install_path() .. '/codelldb'
-
-dap.configurations = {
-    go = {
-        {
-            type = "go",         -- Which adapter to use
-            name = "Debug",      -- Human readable name
-            request = "launch",  -- Whether to "launch" or "attach" to program
-            program = "${file}", -- The buffer you are focused on when running nvim-dap
-        },
-        {
-            type = "delve",
-            name = "Debug test", -- configuration for debugging test files
-            request = "launch",
-            mode = "test",
-            program = "${file}"
-        },
-        -- works with go.mod packages and sub packages
-        {
-            type = "delve",
-            name = "Debug test (go.mod)",
-            request = "launch",
-            mode = "test",
-            program = "./${relativeFileDirname}"
-        },
-    },
-}
-
-dap.configurations.cpp = {
-    {
-        name = 'Debug with codelldb',
-        type = 'codelldb',
-        request = 'launch',
-        program = function()
-            return vim.fn.input({
-                prompt = 'Path to executable: ',
-                default = vim.fn.getcwd() .. '/',
-                completion = 'file',
-            })
-        end,
-        cwd = '${workspaceFolder}',
-        stopOnEntry = false,
-    },
-}
-
-dap.configurations.c = dap.configurations.cpp
-
-dap.adapters.codelldb = {
-    type = 'server',
-    port = '${port}',
-    executable = {
-        command = codelldb,
-        args = { '--port', '${port}' },
-    },
-}
-dap.adapters.go = {
-    type = "server",
-    port = "${port}",
-    executable = {
-        command = vim.fn.stdpath("data") .. '/mason/bin/dlv',
-        args = { "dap", "-l", "127.0.0.1:${port}" },
-    },
-}
 
 require('lspmappings')
 
@@ -381,11 +289,9 @@ format_on_save.setup({
     formatter_by_ft = {
         glsl = formatters.lsp,
         wgsl = formatters.lsp,
-        cuda = formatters.lsp,
         cpp = formatters.lsp,
-        objc = formatters.lsp,
-        css = formatters.lsp,
-        html = formatters.lsp,
+        css = formatters.prettierd,
+        html = formatters.prettierd,
         java = formatters.lsp,
         javascript = formatters.lsp,
         json = formatters.lsp,
@@ -395,13 +301,8 @@ format_on_save.setup({
         python = formatters.black,
         rust = formatters.lsp,
         sh = formatters.shfmt,
-        terraform = formatters.lsp,
         typescript = formatters.prettierd,
-        typescriptreact = formatters.prettierd,
-        yaml = formatters.lsp,
         go = formatters.lsp,
-        toml = formatters.lsp,
-        scala = formatters.lsp,
     },
 })
 
