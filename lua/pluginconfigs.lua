@@ -34,6 +34,10 @@ require 'nvim-treesitter.configs'.setup {
         "gitattributes",
         "c",
         "dot",
+        "odin",
+        "elixir",
+        "erlang",
+        "svelte",
     },
 
     -- Install parsers synchronously
@@ -206,7 +210,7 @@ require('mason-lspconfig').setup {
 -- LSP setup with custom handler for zls
 local lspconfig = require('lspconfig')
 lspconfig.zls.setup({
-    cmd = { "/Users/ozzy/zls/zig-out/bin/zls" }, -- Uses zls from your PATH
+    cmd = { "/Users/ozzy/zig/zls/zig-out/bin/zls" }, -- Uses zls from your PATH
     -- If you need to specify a custom path, use:
     -- cmd = { "/path/to/your/zls" },
 
@@ -303,6 +307,7 @@ format_on_save.setup({
         sh = formatters.shfmt,
         typescript = formatters.prettierd,
         go = formatters.lsp,
+        odin = formatters.lsp,
     },
 })
 
