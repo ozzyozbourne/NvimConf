@@ -4,6 +4,7 @@ require 'nvim-treesitter.configs'.setup {
     -- should always be installed)
     ensure_installed = {
         "bash",
+        "graphql",
         "lua",
         "markdown",
         "markdown_inline",
@@ -175,7 +176,7 @@ require('lualine').setup({
     extensions = {},
 })
 
-require('java').setup()
+-- require('java').setup()
 
 require('mason').setup()
 require("mason-nvim-dap").setup({
