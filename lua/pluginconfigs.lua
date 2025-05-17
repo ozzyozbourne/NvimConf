@@ -176,16 +176,10 @@ require('lualine').setup({
     extensions = {},
 })
 
--- require('java').setup()
+require('java').setup()
 
 require('mason').setup()
-require("mason-nvim-dap").setup({
-    automatic_setup = true,
-    ensure_installed = {
-        "codelldb",
-        "delve",
-    }
-})
+
 require("mason-null-ls").setup({
     ensure_installed = {
         "clang-format",
@@ -204,7 +198,9 @@ require('mason-lspconfig').setup {
         "emmet_language_server",
         "dockerls",
         "wgsl_analyzer",
+        "ols",
     },
+    automatic_enable = true,
 }
 
 
@@ -231,12 +227,6 @@ lspconfig.zls.setup({
     ),
 })
 
-require("mason-lspconfig").setup_handlers({
-    -- Default handler for servers that don't have a dedicated handler
-    function(server_name)
-        require("lspconfig")[server_name].setup {}
-    end,
-})
 
 require('dap').set_log_level('INFO')
 
