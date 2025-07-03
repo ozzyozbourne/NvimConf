@@ -176,7 +176,7 @@ require('lualine').setup({
     extensions = {},
 })
 
-require('java').setup()
+-- require('java').setup()
 
 require('mason').setup()
 
@@ -206,6 +206,7 @@ require('mason-lspconfig').setup {
 
 -- LSP setup with custom handler for zls
 local lspconfig = require('lspconfig')
+lspconfig.jdtls.setup({})
 lspconfig.zls.setup({
     cmd = { "/Users/ozzy/zig/zls/zig-out/bin/zls" }, -- Uses zls from your PATH
     -- If you need to specify a custom path, use:
