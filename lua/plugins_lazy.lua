@@ -20,8 +20,6 @@ return {
         dependencies = { 'nvim-tree/nvim-web-devicons' }
     },
 
-    { 'nvim-java/nvim-java' },
-
     --nvim-cmp
     { 'hrsh7th/cmp-buffer' },
     { 'hrsh7th/cmp-path' },
