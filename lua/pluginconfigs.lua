@@ -1,7 +1,4 @@
 require 'nvim-treesitter.configs'.setup {
-    -- A list of parser names, or
-    -- "all" (the five listed parsers
-    -- should always be installed)
     ensure_installed = {
         "bash",
         "graphql",
@@ -40,17 +37,7 @@ require 'nvim-treesitter.configs'.setup {
         "erlang",
         "svelte",
     },
-
-    -- Install parsers synchronously
-    -- (only applied to
-    -- `ensure_installed`)
     sync_install = false,
-
-    -- Automatically install missing
-    -- parsers when entering buffer
-    -- Recommendation: set to false
-    -- if you don't have `tree-sitter`
-    -- CLI installed locally
     auto_install = false,
 }
 
@@ -67,21 +54,15 @@ require("toggleterm").setup {
     persist_mode = true,      -- if set to true (default) the previous terminal mode will be remembered
     direction = 'float',
     close_on_exit = true,     -- close the terminal window when the process exits
-    -- Change the default shell. Can be a string or a function returning a string
     shell = vim.o.shell,
-    auto_scroll = true, -- automatically scroll to the bottom on terminal output
-    -- This field is only relevant if direction is set to 'float'
+    auto_scroll = true,       -- automatically scroll to the bottom on terminal output
     float_opts = { border = 'curved' },
 }
 
-
--- which-key
 require("which-key").setup {
     plugins = {
-        marks = true,     -- shows a list of your marks on ' and `
-        registers = true, -- shows your registers on " in NORMAL or <C-r> in INSERT mode
-        -- the presets plugin, adds help for a bunch of default keybindings in Neovim
-        -- No actual key bindings are created
+        marks = true,         -- shows a list of your marks on ' and `
+        registers = true,     -- shows your registers on " in NORMAL or <C-r> in INSERT mode
         spelling = {
             enabled = true,   -- enabling this will show WhichKey when pressing z= to select spelling suggestions
             suggestions = 20, -- how many suggestions should be shown in the list?
@@ -128,20 +109,10 @@ require("neo-tree").setup({
             hide_dotfiles = false,
             hide_gitignored = false,
             hide_hidden = true, -- only works on Windows for hidden files/directories
-            hide_by_name = {
-                --"node_modules"
-            },
-            hide_by_pattern = { -- uses glob style patterns
-                --"*.meta",
-                --"*/src/*/tsconfig.json",
-            },
-            always_show = { -- remains visible even if other settings would normally hide it
-                --".gitignored",
-            },
-            never_show = { -- remains hidden even if visible is toggled to true, this overrides always_show
-                --".DS_Store",
-                --"thumbs.db"
-            }
+            hide_by_name = {},
+            hide_by_pattern = {},
+            always_show = {},
+            never_show = {}
         }
     }
 })
@@ -176,8 +147,6 @@ require('lualine').setup({
     extensions = {},
 })
 
--- require('java').setup()
-
 require('mason').setup()
 
 require("mason-null-ls").setup({
@@ -186,6 +155,7 @@ require("mason-null-ls").setup({
         "gofumpt",
     }
 })
+
 require('mason-lspconfig').setup {
     ensure_installed = {
         "lua_ls",
@@ -197,30 +167,18 @@ require('mason-lspconfig').setup {
         "html",
         "emmet_language_server",
         "dockerls",
-        "wgsl_analyzer",
-        "ols",
     },
     automatic_enable = true,
 }
 
-
--- LSP setup with custom handler for zls
 local lspconfig = require('lspconfig')
 lspconfig.jdtls.setup({})
 lspconfig.zls.setup({
     cmd = { "/Users/ozzy/zig/zls/zig-out/bin/zls" }, -- Uses zls from your PATH
-    -- If you need to specify a custom path, use:
-    -- cmd = { "/path/to/your/zls" },
-
     settings = {
-        zig = {
-            -- Add any zls-specific settings here if needed
-            -- enableSemanticHighlighting = true,
-            -- enableInlayHints = true,
-        }
+        zig = {}
     },
 
-    -- Optional: Add specific capabilities if you're using nvim-cmp
     capabilities = vim.tbl_deep_extend(
         "force",
         vim.lsp.protocol.make_client_capabilities(),
@@ -236,7 +194,6 @@ require('lspmappings')
 local cmp = require('cmp')
 cmp.setup({
     snippet = {
-        -- REQUIRED - you must specify a snippet engine
         expand = function(args)
             vim.fn["vsnip#anonymous"](args.body)
         end,
@@ -283,8 +240,6 @@ format_on_save.setup({
         ".local/share/nvim/lazy",
     },
     formatter_by_ft = {
-        glsl = formatters.lsp,
-        wgsl = formatters.lsp,
         cpp = formatters.lsp,
         css = formatters.prettierd,
         html = formatters.prettierd,
@@ -299,7 +254,6 @@ format_on_save.setup({
         sh = formatters.shfmt,
         typescript = formatters.prettierd,
         go = formatters.lsp,
-        odin = formatters.lsp,
     },
 })
 
@@ -325,18 +279,13 @@ autosave.setup(
 
 require('Comment').setup()
 
--- indent blankline
 require("ibl").setup()
 
-
---UFO
 require('ufo').setup()
 
--- Bufferline
 require("bufferline").setup {
     options = {
         mode = 'buffers',
-        -- diagnostics = 'coc',
         offsets = {
             {
                 filetype = "NvimTree",
@@ -350,33 +299,18 @@ require("bufferline").setup {
 
 require('harpoon').setup({
     global_settings = {
-        -- sets the marks upon calling `toggle` on the ui, instead of require `:w`.
         save_on_toggle = false,
-
-        -- saves the harpoon file upon every change. disabling is unrecommended.
         save_on_change = true,
-
-        -- sets harpoon to run the command immediately as it's passed to the terminal when calling `sendCommand`.
         enter_on_sendcmd = false,
-
-        -- closes any tmux windows harpoon that harpoon creates when you close Neovim.
         tmux_autoclose_windows = false,
-
-        -- filetypes that you want to prevent from adding to the harpoon list menu.
         excluded_filetypes = { "harpoon" },
-
-        -- set marks specific to each git branch inside git repository
-        -- Each branch will have it's own set of marked files
         mark_branch = true,
-
-        -- enable tabline with harpoon marks
         tabline = false,
         tabline_prefix = "   ",
         tabline_suffix = "   ",
     }
 })
 
--- Harpoon telescope extension
 require('telescope').load_extension('harpoon')
 
 require('lspsaga').setup({
