@@ -1,23 +1,15 @@
 require 'nvim-treesitter.configs'.setup {
-    -- A list of parser names, or
-    -- "all" (the five listed parsers
-    -- should always be installed)
     ensure_installed = {
         "bash",
+        "graphql",
         "lua",
         "markdown",
         "markdown_inline",
         "javascript",
         "cmake",
         "css",
-        "scss",
         "cpp",
-        "csv",
-        "xml",
-        "erlang",
-        "elixir",
         "dockerfile",
-        "gitignore",
         "go",
         "gosum",
         "html",
@@ -26,21 +18,8 @@ require 'nvim-treesitter.configs'.setup {
         "make",
         "proto",
         "properties",
-        "cuda",
-        "fortran",
-        "heex",
-        "templ",
-        "gotmpl",
-        "objc",
-        "r",
         "regex",
-        "helm",
-        "terraform",
-        "sql",
-        "kotlin",
-        "nginx",
         "jsdoc",
-        "toml",
         "typescript",
         "yaml",
         "zig",
@@ -51,25 +30,14 @@ require 'nvim-treesitter.configs'.setup {
         "gomod",
         "gitignore",
         "gitattributes",
-        "cpp",
         "c",
-        "sql",
-        "svelte",
-        "scala",
-        "odin",
         "dot",
+        "odin",
+        "elixir",
+        "erlang",
+        "svelte",
     },
-
-    -- Install parsers synchronously
-    -- (only applied to
-    -- `ensure_installed`)
     sync_install = false,
-
-    -- Automatically install missing
-    -- parsers when entering buffer
-    -- Recommendation: set to false
-    -- if you don't have `tree-sitter`
-    -- CLI installed locally
     auto_install = false,
 }
 
@@ -86,21 +54,15 @@ require("toggleterm").setup {
     persist_mode = true,      -- if set to true (default) the previous terminal mode will be remembered
     direction = 'float',
     close_on_exit = true,     -- close the terminal window when the process exits
-    -- Change the default shell. Can be a string or a function returning a string
     shell = vim.o.shell,
-    auto_scroll = true, -- automatically scroll to the bottom on terminal output
-    -- This field is only relevant if direction is set to 'float'
+    auto_scroll = true,       -- automatically scroll to the bottom on terminal output
     float_opts = { border = 'curved' },
 }
 
-
--- which-key
 require("which-key").setup {
     plugins = {
-        marks = true,     -- shows a list of your marks on ' and `
-        registers = true, -- shows your registers on " in NORMAL or <C-r> in INSERT mode
-        -- the presets plugin, adds help for a bunch of default keybindings in Neovim
-        -- No actual key bindings are created
+        marks = true,         -- shows a list of your marks on ' and `
+        registers = true,     -- shows your registers on " in NORMAL or <C-r> in INSERT mode
         spelling = {
             enabled = true,   -- enabling this will show WhichKey when pressing z= to select spelling suggestions
             suggestions = 20, -- how many suggestions should be shown in the list?
@@ -147,20 +109,10 @@ require("neo-tree").setup({
             hide_dotfiles = false,
             hide_gitignored = false,
             hide_hidden = true, -- only works on Windows for hidden files/directories
-            hide_by_name = {
-                --"node_modules"
-            },
-            hide_by_pattern = { -- uses glob style patterns
-                --"*.meta",
-                --"*/src/*/tsconfig.json",
-            },
-            always_show = { -- remains visible even if other settings would normally hide it
-                --".gitignored",
-            },
-            never_show = { -- remains hidden even if visible is toggled to true, this overrides always_show
-                --".DS_Store",
-                --"thumbs.db"
-            }
+            hide_by_name = {},
+            hide_by_pattern = {},
+            always_show = {},
+            never_show = {}
         }
     }
 })
@@ -195,22 +147,15 @@ require('lualine').setup({
     extensions = {},
 })
 
-require('java').setup()
-
 require('mason').setup()
-require("mason-nvim-dap").setup({
-    automatic_setup = true,
-    ensure_installed = {
-        "codelldb",
-        "delve",
-    }
-})
+
 require("mason-null-ls").setup({
     ensure_installed = {
         "clang-format",
         "gofumpt",
     }
 })
+
 require('mason-lspconfig').setup {
     ensure_installed = {
         "lua_ls",
@@ -218,32 +163,22 @@ require('mason-lspconfig').setup {
         "gopls",
         "clangd",
         "pylsp",
-        "sqls",
         "ts_ls",
-        "htmx",
         "html",
         "emmet_language_server",
         "dockerls",
     },
+    automatic_enable = true,
 }
 
-
--- LSP setup with custom handler for zls
 local lspconfig = require('lspconfig')
+lspconfig.jdtls.setup({})
 lspconfig.zls.setup({
-    cmd = { "/Users/ozzy/zls/zig-out/bin/zls" }, -- Uses zls from your PATH
-    -- If you need to specify a custom path, use:
-    -- cmd = { "/path/to/your/zls" },
-
+    cmd = { "/Users/ozzy/zig/zls/zig-out/bin/zls" }, -- Uses zls from your PATH
     settings = {
-        zig = {
-            -- Add any zls-specific settings here if needed
-            -- enableSemanticHighlighting = true,
-            -- enableInlayHints = true,
-        }
+        zig = {}
     },
 
-    -- Optional: Add specific capabilities if you're using nvim-cmp
     capabilities = vim.tbl_deep_extend(
         "force",
         vim.lsp.protocol.make_client_capabilities(),
@@ -251,88 +186,14 @@ lspconfig.zls.setup({
     ),
 })
 
-require("mason-lspconfig").setup_handlers({
-    -- Default handler for servers that don't have a dedicated handler
-    function(server_name)
-        require("lspconfig")[server_name].setup {}
-    end,
-})
-
-
 
 require('dap').set_log_level('INFO')
-
-local dap = require('dap')
-local codelldb = require('mason-registry').get_package('codelldb'):get_install_path() .. '/codelldb'
-
-dap.configurations = {
-    go = {
-        {
-            type = "go",         -- Which adapter to use
-            name = "Debug",      -- Human readable name
-            request = "launch",  -- Whether to "launch" or "attach" to program
-            program = "${file}", -- The buffer you are focused on when running nvim-dap
-        },
-        {
-            type = "delve",
-            name = "Debug test", -- configuration for debugging test files
-            request = "launch",
-            mode = "test",
-            program = "${file}"
-        },
-        -- works with go.mod packages and sub packages
-        {
-            type = "delve",
-            name = "Debug test (go.mod)",
-            request = "launch",
-            mode = "test",
-            program = "./${relativeFileDirname}"
-        },
-    },
-}
-
-dap.configurations.cpp = {
-    {
-        name = 'Debug with codelldb',
-        type = 'codelldb',
-        request = 'launch',
-        program = function()
-            return vim.fn.input({
-                prompt = 'Path to executable: ',
-                default = vim.fn.getcwd() .. '/',
-                completion = 'file',
-            })
-        end,
-        cwd = '${workspaceFolder}',
-        stopOnEntry = false,
-    },
-}
-
-dap.configurations.c = dap.configurations.cpp
-
-dap.adapters.codelldb = {
-    type = 'server',
-    port = '${port}',
-    executable = {
-        command = codelldb,
-        args = { '--port', '${port}' },
-    },
-}
-dap.adapters.go = {
-    type = "server",
-    port = "${port}",
-    executable = {
-        command = vim.fn.stdpath("data") .. '/mason/bin/dlv',
-        args = { "dap", "-l", "127.0.0.1:${port}" },
-    },
-}
 
 require('lspmappings')
 
 local cmp = require('cmp')
 cmp.setup({
     snippet = {
-        -- REQUIRED - you must specify a snippet engine
         expand = function(args)
             vim.fn["vsnip#anonymous"](args.body)
         end,
@@ -379,13 +240,9 @@ format_on_save.setup({
         ".local/share/nvim/lazy",
     },
     formatter_by_ft = {
-        glsl = formatters.lsp,
-        wgsl = formatters.lsp,
-        cuda = formatters.lsp,
         cpp = formatters.lsp,
-        objc = formatters.lsp,
-        css = formatters.lsp,
-        html = formatters.lsp,
+        css = formatters.prettierd,
+        html = formatters.prettierd,
         java = formatters.lsp,
         javascript = formatters.lsp,
         json = formatters.lsp,
@@ -395,13 +252,8 @@ format_on_save.setup({
         python = formatters.black,
         rust = formatters.lsp,
         sh = formatters.shfmt,
-        terraform = formatters.lsp,
         typescript = formatters.prettierd,
-        typescriptreact = formatters.prettierd,
-        yaml = formatters.lsp,
         go = formatters.lsp,
-        toml = formatters.lsp,
-        scala = formatters.lsp,
     },
 })
 
@@ -427,18 +279,13 @@ autosave.setup(
 
 require('Comment').setup()
 
--- indent blankline
 require("ibl").setup()
 
-
---UFO
 require('ufo').setup()
 
--- Bufferline
 require("bufferline").setup {
     options = {
         mode = 'buffers',
-        -- diagnostics = 'coc',
         offsets = {
             {
                 filetype = "NvimTree",
@@ -452,33 +299,18 @@ require("bufferline").setup {
 
 require('harpoon').setup({
     global_settings = {
-        -- sets the marks upon calling `toggle` on the ui, instead of require `:w`.
         save_on_toggle = false,
-
-        -- saves the harpoon file upon every change. disabling is unrecommended.
         save_on_change = true,
-
-        -- sets harpoon to run the command immediately as it's passed to the terminal when calling `sendCommand`.
         enter_on_sendcmd = false,
-
-        -- closes any tmux windows harpoon that harpoon creates when you close Neovim.
         tmux_autoclose_windows = false,
-
-        -- filetypes that you want to prevent from adding to the harpoon list menu.
         excluded_filetypes = { "harpoon" },
-
-        -- set marks specific to each git branch inside git repository
-        -- Each branch will have it's own set of marked files
         mark_branch = true,
-
-        -- enable tabline with harpoon marks
         tabline = false,
         tabline_prefix = "   ",
         tabline_suffix = "   ",
     }
 })
 
--- Harpoon telescope extension
 require('telescope').load_extension('harpoon')
 
 require('lspsaga').setup({
