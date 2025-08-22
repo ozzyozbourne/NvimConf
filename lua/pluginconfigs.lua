@@ -36,6 +36,7 @@ require 'nvim-treesitter.configs'.setup {
         "elixir",
         "erlang",
         "svelte",
+        "tcl",
     },
     sync_install = false,
     auto_install = false,
