@@ -172,9 +172,8 @@ require('mason-lspconfig').setup {
     automatic_enable = true,
 }
 
-local lspconfig = require('lspconfig')
-lspconfig.jdtls.setup({})
-lspconfig.zls.setup({
+vim.lsp.config.jdtls = {}
+vim.lsp.config.zls = {
     cmd = { "/Users/ozzy/zig/zls/zig-out/bin/zls" }, -- Uses zls from your PATH
     settings = {
         zig = {}
@@ -185,7 +184,7 @@ lspconfig.zls.setup({
         vim.lsp.protocol.make_client_capabilities(),
         require('cmp_nvim_lsp').default_capabilities()
     ),
-})
+}
 
 
 require('dap').set_log_level('INFO')
