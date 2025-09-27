@@ -172,20 +172,38 @@ require('mason-lspconfig').setup {
     automatic_enable = true,
 }
 
-vim.lsp.config.jdtls = {}
-vim.lsp.config.zls = {
-    cmd = { "/Users/ozzy/zig/zls/zig-out/bin/zls" }, -- Uses zls from your PATH
-    settings = {
-        zig = {}
-    },
+-- Configure capabilities
+local capabilities = vim.tbl_deep_extend(
+    "force",
+    vim.lsp.protocol.make_client_capabilities(),
+    require('cmp_nvim_lsp').default_capabilities()
+)
 
-    capabilities = vim.tbl_deep_extend(
-        "force",
-        vim.lsp.protocol.make_client_capabilities(),
-        require('cmp_nvim_lsp').default_capabilities()
-    ),
-}
 
+-- Easy migration: Replace your autocmds with this
+local capabilities = vim.tbl_deep_extend(
+    "force",
+    vim.lsp.protocol.make_client_capabilities(),
+    require('cmp_nvim_lsp').default_capabilities()
+)
+
+-- Define configs
+vim.lsp.config('zls', {
+    cmd = { '/Users/ozzy/zig/lsp/0.16.0/zls' },
+    root_markers = { 'build.zig', 'build.zig.zon', '.git' },
+    capabilities = capabilities,
+    settings = { zig = {} }
+})
+
+vim.lsp.config('jdtls', {
+    cmd = { 'jdtls' },
+    root_markers = { 'gradlew', 'build.gradle', 'pom.xml', '.git' },
+    capabilities = capabilities,
+})
+
+-- Enable them (replaces your autocmds)
+vim.lsp.enable('zls')
+vim.lsp.enable('jdtls')
 
 require('dap').set_log_level('INFO')
 
