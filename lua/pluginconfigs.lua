@@ -189,7 +189,7 @@ local capabilities = vim.tbl_deep_extend(
 
 -- Define configs
 vim.lsp.config('zls', {
-    cmd = { '/Users/ozzy/zig/lsp/0.16.0/zls' },
+    cmd = { '/Users/ozzy/zig/lsp/' .. require('constants').ZLS_VERSION .. '/zls' },
     root_markers = { 'build.zig', 'build.zig.zon', '.git' },
     capabilities = capabilities,
     settings = { zig = {} }
