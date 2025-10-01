@@ -37,6 +37,7 @@ require 'nvim-treesitter.configs'.setup {
         "erlang",
         "svelte",
         "tcl",
+        "pony",
     },
     sync_install = false,
     auto_install = false,
