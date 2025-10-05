@@ -12,7 +12,7 @@ vim.opt_local.expandtab = false
 
 -- Ensure these settings aren't overridden
 vim.api.nvim_create_autocmd("BufEnter", {
-    pattern = "*.go",
+    pattern = "*.odin",
     callback = function()
         vim.bo.tabstop = 4
         vim.bo.softtabstop = 0
