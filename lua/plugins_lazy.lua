@@ -35,7 +35,6 @@ return {
     { 'hrsh7th/cmp-nvim-lsp' },
     { 'tpope/vim-surround' },
     { 'nvim-telescope/telescope.nvim',       dependencies = { 'nvim-lua/plenary.nvim' } },
-    { "elentok/format-on-save.nvim" },
     { "0x00-ketsu/autosave.nvim" },
     { 'numToStr/Comment.nvim' },
     { "lukas-reineke/indent-blankline.nvim", tag = "v3.5.3",                            main = "ibl", opts = {} },
@@ -128,5 +127,9 @@ return {
                 group = nvim_metals_group,
             })
         end
+    },
+    {
+        'stevearc/conform.nvim',
+        opts = {},
     },
 }

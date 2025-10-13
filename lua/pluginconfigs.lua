@@ -43,6 +43,85 @@ require 'nvim-treesitter.configs'.setup {
     auto_install = false,
 }
 
+local parser_config = require('nvim-treesitter.parsers').get_parser_configs()
+
+parser_config.ziggy = {
+    install_info = {
+        url = 'https://github.com/kristoff-it/ziggy',
+        includes = { 'tree-sitter-ziggy/src' },
+        files = { 'tree-sitter-ziggy/src/parser.c' },
+        branch = 'main',
+        generate_requires_npm = false,
+        requires_generate_from_grammar = false,
+    },
+    filetype = 'ziggy',
+}
+
+parser_config.ziggy_schema = {
+    install_info = {
+        url = 'https://github.com/kristoff-it/ziggy',
+        files = { 'tree-sitter-ziggy-schema/src/parser.c' },
+        branch = 'main',
+        generate_requires_npm = false,
+        requires_generate_from_grammar = false,
+    },
+    filetype = 'ziggy-schema',
+}
+
+parser_config.supermd = {
+    install_info = {
+        url = 'https://github.com/kristoff-it/supermd',
+        includes = { 'tree-sitter/supermd/src' },
+        files = {
+            'tree-sitter/supermd/src/parser.c',
+            'tree-sitter/supermd/src/scanner.c'
+        },
+        branch = 'main',
+        generate_requires_npm = false,
+        requires_generate_from_grammar = false,
+    },
+    filetype = 'supermd',
+}
+
+parser_config.supermd_inline = {
+    install_info = {
+        url = 'https://github.com/kristoff-it/supermd',
+        includes = { 'tree-sitter/supermd-inline/src' },
+        files = {
+            'tree-sitter/supermd-inline/src/parser.c',
+            'tree-sitter/supermd-inline/src/scanner.c'
+        },
+        branch = 'main',
+        generate_requires_npm = false,
+        requires_generate_from_grammar = false,
+    },
+    filetype = 'supermd_inline',
+}
+
+parser_config.superhtml = {
+    install_info = {
+        url = 'https://github.com/kristoff-it/superhtml',
+        includes = { 'tree-sitter-superhtml/src' },
+        files = {
+            'tree-sitter-superhtml/src/parser.c',
+            'tree-sitter-superhtml/src/scanner.c'
+        },
+        branch = 'main',
+        generate_requires_npm = false,
+        requires_generate_from_grammar = false,
+    },
+    filetype = 'superhtml',
+}
+
+vim.filetype.add {
+    extension = {
+        smd = 'supermd',
+        shtml = 'superhtml',
+        ziggy = 'ziggy',
+        ['ziggy-schema'] = 'ziggy_schema',
+    },
+}
+
 require("toggleterm").setup {
     size = 20,
     open_mapping = [[<c-\>]],
@@ -206,6 +285,58 @@ vim.lsp.config('jdtls', {
 vim.lsp.enable('zls')
 vim.lsp.enable('jdtls')
 
+-- Conform.nvim setup
+require("conform").setup({
+    -- Define custom formatters
+    formatters = {
+        superhtml = {
+            inherit = false,
+            command = 'superhtml',
+            stdin = true,
+            args = { 'fmt', '--stdin-super' },
+        },
+        ziggy = {
+            inherit = false,
+            command = 'ziggy',
+            stdin = true,
+            args = { 'fmt', '--stdin' },
+        },
+        ziggy_schema = {
+            inherit = false,
+            command = 'ziggy',
+            stdin = true,
+            args = { 'fmt', '--stdin-schema' },
+        },
+    },
+
+    -- Assign formatters to filetypes
+    formatters_by_ft = {
+        cpp = { "clang_format", lsp_format = "fallback" },
+        css = { "prettierd" },
+        html = { "prettierd" },
+        java = { lsp_format = "prefer" },
+        javascript = { lsp_format = "prefer" },
+        json = { lsp_format = "prefer" },
+        jsonc = { lsp_format = "prefer" },
+        lua = { lsp_format = "prefer" },
+        markdown = { "prettierd" },
+        python = { "black" },
+        rust = { lsp_format = "prefer" },
+        sh = { "shfmt" },
+        typescript = { "prettierd" },
+        go = { lsp_format = "prefer" },
+        superhtml = { "superhtml" },
+        ziggy = { "ziggy" },
+        ziggy_schema = { "ziggy_schema" },
+    },
+
+    -- Format on save
+    format_on_save = {
+        timeout_ms = 500,
+        lsp_format = "fallback",
+    },
+})
+
 require('dap').set_log_level('INFO')
 
 require('lspmappings')
@@ -247,33 +378,6 @@ require('telescope').setup({
             theme = "dropdown",
         }
     }
-})
-
-
-local format_on_save = require("format-on-save")
-local formatters = require("format-on-save.formatters")
-
-format_on_save.setup({
-    exclude_path_patterns = {
-        "/node_modules/",
-        ".local/share/nvim/lazy",
-    },
-    formatter_by_ft = {
-        cpp = formatters.lsp,
-        css = formatters.prettierd,
-        html = formatters.prettierd,
-        java = formatters.lsp,
-        javascript = formatters.lsp,
-        json = formatters.lsp,
-        jsonc = formatters.lsp,
-        lua = formatters.lsp,
-        markdown = formatters.prettierd,
-        python = formatters.black,
-        rust = formatters.lsp,
-        sh = formatters.shfmt,
-        typescript = formatters.prettierd,
-        go = formatters.lsp,
-    },
 })
 
 local autosave = require('autosave')
