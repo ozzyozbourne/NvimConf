@@ -243,7 +243,6 @@ require('mason-lspconfig').setup {
         "rust_analyzer",
         "gopls",
         "clangd",
-        "pylsp",
         "ts_ls",
         "html",
         "emmet_language_server",
@@ -251,14 +250,6 @@ require('mason-lspconfig').setup {
     },
     automatic_enable = true,
 }
-
--- Configure capabilities
-local capabilities = vim.tbl_deep_extend(
-    "force",
-    vim.lsp.protocol.make_client_capabilities(),
-    require('cmp_nvim_lsp').default_capabilities()
-)
-
 
 -- Easy migration: Replace your autocmds with this
 local capabilities = vim.tbl_deep_extend(
@@ -284,6 +275,29 @@ vim.lsp.config('jdtls', {
 -- Enable them (replaces your autocmds)
 vim.lsp.enable('zls')
 vim.lsp.enable('jdtls')
+
+-- Add Pyright
+vim.lsp.config('pyright', {
+    cmd = { 'pyright-langserver', '--stdio' },
+    root_markers = { 'pyproject.toml', 'setup.py', 'requirements.txt', '.git' },
+    capabilities = capabilities,
+    settings = {
+        python = {
+            venvPath = ".",
+            venv = ".venv",
+            pythonPath = ".venv/bin/python",
+            analysis = {
+                autoSearchPaths = true,
+                diagnosticMode = 'openFilesOnly',
+                useLibraryCodeForTypes = true,
+            },
+        },
+    },
+})
+
+-- Enable Pyright
+vim.lsp.enable('pyright')
+
 
 -- Conform.nvim setup
 require("conform").setup({
