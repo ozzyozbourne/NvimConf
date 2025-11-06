@@ -243,7 +243,6 @@ require('mason-lspconfig').setup {
         "rust_analyzer",
         "gopls",
         "clangd",
-        "pylsp",
         "ts_ls",
         "html",
         "emmet_language_server",
