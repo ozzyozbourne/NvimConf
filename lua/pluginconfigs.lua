@@ -39,6 +39,22 @@ require 'nvim-treesitter.configs'.setup {
         "tcl",
         "pony",
     },
+    highlight = {
+        enable = true,
+        additional_vim_regex_highlighting = false,
+    },
+    indent = {
+        enable = true,
+    },
+    incremental_selection = {
+        enable = true,
+        keymaps = {
+            init_selection = "gnn",
+            node_incremental = "grn",
+            scope_incremental = "grc",
+            node_decremental = "grm",
+        },
+    },
     sync_install = false,
     auto_install = false,
 }
@@ -111,6 +127,17 @@ parser_config.superhtml = {
         requires_generate_from_grammar = false,
     },
     filetype = 'superhtml',
+}
+
+parser_config.mojo = {
+    install_info = {
+        url = 'https://github.com/lsh/tree-sitter-mojo.git', -- local path or git repo
+        files = { 'src/parser.c', 'src/scanner.c' },         -- note: some parsers require scanner.c
+        -- optional entries:
+        branch = 'main',
+        requires_generate_from_grammar = false, -- if src/parser.c needs to be generated
+    },
+    filetype = { 'mojo', '🔥' },
 }
 
 vim.filetype.add {
@@ -272,11 +299,12 @@ vim.lsp.config('jdtls', {
     capabilities = capabilities,
 })
 
--- Enable them (replaces your autocmds)
-vim.lsp.enable('zls')
-vim.lsp.enable('jdtls')
+vim.lsp.config('mojo', {
+    cmd = { 'mojo-lsp-server' },
+    root_markers = { 'pixi.toml', '.pixi', 'pixi.lock', '.git' },
+    capabilities = capabilities,
+})
 
--- Add Pyright
 vim.lsp.config('pyright', {
     cmd = { 'pyright-langserver', '--stdio' },
     root_markers = { 'pyproject.toml', 'setup.py', 'requirements.txt', '.git' },
@@ -295,11 +323,12 @@ vim.lsp.config('pyright', {
     },
 })
 
--- Enable Pyright
+vim.lsp.enable('zls')
+vim.lsp.enable('jdtls')
+vim.lsp.enable('mojo')
 vim.lsp.enable('pyright')
 
 
--- Conform.nvim setup
 require("conform").setup({
     -- Define custom formatters
     formatters = {
