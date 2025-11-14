@@ -39,6 +39,22 @@ require 'nvim-treesitter.configs'.setup {
         "tcl",
         "pony",
     },
+    highlight = {
+        enable = true,
+        additional_vim_regex_highlighting = false,
+    },
+    indent = {
+        enable = true,
+    },
+    incremental_selection = {
+        enable = true,
+        keymaps = {
+            init_selection = "gnn",
+            node_incremental = "grn",
+            scope_incremental = "grc",
+            node_decremental = "grm",
+        },
+    },
     sync_install = false,
     auto_install = false,
 }
@@ -275,7 +291,7 @@ vim.lsp.config('jdtls', {
 -- Enable them (replaces your autocmds)
 vim.lsp.enable('zls')
 vim.lsp.enable('jdtls')
-
+vim.lsp.enable('mojo')
 -- Add Pyright
 vim.lsp.config('pyright', {
     cmd = { 'pyright-langserver', '--stdio' },
