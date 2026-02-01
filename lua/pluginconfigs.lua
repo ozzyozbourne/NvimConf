@@ -318,6 +318,9 @@ vim.lsp.config('pyright', {
                 autoSearchPaths = true,
                 diagnosticMode = 'openFilesOnly',
                 useLibraryCodeForTypes = true,
+                diagnosticSeverityOverrides = {
+                    reportUnusedParameter = "none",
+                },
             },
         },
     },
