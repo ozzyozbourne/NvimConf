@@ -129,17 +129,17 @@ parser_config.superhtml = {
     filetype = 'superhtml',
 }
 
-parser_config.mojo = {
-    install_info = {
-        url = 'https://github.com/lsh/tree-sitter-mojo.git', -- local path or git repo
-        files = { 'src/parser.c', 'src/scanner.c' },         -- note: some parsers require scanner.c
-        -- optional entries:
-        branch = 'main',
-        requires_generate_from_grammar = false, -- if src/parser.c needs to be generated
-    },
-    filetype = { 'mojo', '🔥' },
-}
-
+-- parser_config.mojo = {
+--     install_info = {
+--         url = 'https://github.com/lsh/tree-sitter-mojo.git', -- local path or git repo
+--         files = { 'src/parser.c', 'src/scanner.c' },         -- note: some parsers require scanner.c
+--         -- optional entries:
+--         branch = 'main',
+--         requires_generate_from_grammar = false, -- if src/parser.c needs to be generated
+--     },
+--     filetype = { 'mojo', '🔥' },
+-- }
+--
 vim.filetype.add {
     extension = {
         smd = 'supermd',
@@ -273,7 +273,6 @@ require('mason-lspconfig').setup {
         "ts_ls",
         "html",
         "emmet_language_server",
-        "dockerls",
     },
     automatic_enable = true,
 }
@@ -299,11 +298,11 @@ vim.lsp.config('jdtls', {
     capabilities = capabilities,
 })
 
-vim.lsp.config('mojo', {
-    cmd = { 'mojo-lsp-server' },
-    root_markers = { 'pixi.toml', '.pixi', 'pixi.lock', '.git' },
-    capabilities = capabilities,
-})
+-- vim.lsp.config('mojo', {
+--     cmd = { 'mojo-lsp-server' },
+--     root_markers = { 'pixi.toml', '.pixi', 'pixi.lock', '.git' },
+--     capabilities = capabilities,
+-- })
 
 vim.lsp.config('pyright', {
     cmd = { 'pyright-langserver', '--stdio' },
@@ -328,7 +327,7 @@ vim.lsp.config('pyright', {
 
 vim.lsp.enable('zls')
 vim.lsp.enable('jdtls')
-vim.lsp.enable('mojo')
+-- vim.lsp.enable('mojo')
 vim.lsp.enable('pyright')
 
 
@@ -358,14 +357,14 @@ require("conform").setup({
     -- Assign formatters to filetypes
     formatters_by_ft = {
         cpp = { "clang_format", lsp_format = "fallback" },
-        css = { "prettierd" },
+        css = { "prettier" },
         html = { "prettierd" },
         java = { lsp_format = "prefer" },
         javascript = { lsp_format = "prefer" },
         json = { lsp_format = "prefer" },
         jsonc = { lsp_format = "prefer" },
         lua = { lsp_format = "prefer" },
-        markdown = { "prettierd" },
+        -- markdown = { "prettierd" },
         python = { "black" },
         rust = { lsp_format = "prefer" },
         sh = { "shfmt" },
