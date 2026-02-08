@@ -357,7 +357,7 @@ require("conform").setup({
     -- Assign formatters to filetypes
     formatters_by_ft = {
         cpp = { "clang_format", lsp_format = "fallback" },
-        css = { "prettierd" },
+        css = { "prettier" },
         html = { "prettierd" },
         java = { lsp_format = "prefer" },
         javascript = { lsp_format = "prefer" },
