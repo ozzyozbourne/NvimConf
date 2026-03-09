@@ -1,3 +1,3 @@
 return {
-    ZLS_VERSION = "0.15.0"
+    ZLS_VERSION = "0.16.0"
 }
