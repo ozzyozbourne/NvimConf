@@ -1,21 +1,19 @@
 vim.g.mapleader = " "
-vim.g.termguicolors = true
 
+vim.o.termguicolors = true
 vim.o.nu = true
+vim.o.clipboard = "unnamedplus"
 vim.o.relativenumber = true
 vim.o.cursorline = true
 vim.o.expandtab = true
 vim.o.tabstop = 4
 vim.o.shiftwidth = 4
-vim.o.hlsearch = false
-vim.o.incsearch = true
 vim.o.swapfile = false
 vim.o.backup = false
 vim.o.wrap = false
 vim.o.undofile = true
 vim.o.undodir = os.getenv("HOME") .. "/.cache/nvim/undodir"
 vim.o.list = true
---vim.o.listchars = "tabs:> "
 vim.o.path = "**"
 
 vim.cmd(":colorscheme retrobox")
@@ -52,7 +50,6 @@ map("n", "<A-h>", ":below term<CR>i")
 map("n", "<leader>w", ":write<CR>")
 map("n", "<leader>q", ":quit<CR>")
 map("n", "<leader>Q", ":quit!<CR>")
-map("v", "<leader>y", "\"+y")
 map("n", "<leader>e", ":Ex<CR>")
 map("n", "<leader>v", ":edit $MYVIMRC<CR>")
 map("n", "<leader>ff", ":find ")
