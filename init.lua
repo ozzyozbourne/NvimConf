@@ -1,3 +1,7 @@
+vim.pack.add({
+  'https://github.com/nvim-treesitter/nvim-treesitter',
+})
+
 vim.g.mapleader = " "
 
 vim.o.termguicolors = true
@@ -16,15 +20,11 @@ vim.o.undodir = os.getenv("HOME") .. "/.cache/nvim/undodir"
 vim.o.list = true
 vim.o.path = "**"
 
-vim.cmd(":colorscheme retrobox")
-vim.cmd(":command! -nargs=+ Grep execute 'silent grep! <args>' | copen")
+vim.cmd("colorscheme retrobox")
+vim.cmd("command! -nargs=+ Grep execute 'silent grep! <args>' | copen")
 
-vim.treesitter.language.register("cpp", "c")
-vim.api.nvim_create_autocmd("FileType", {
-    pattern = {
-        "c", "h", "cpp",
-        "lua"
-    },
+vim.api.nvim_create_autocmd("filetype", {
+    pattern = {"c", "h", "cpp", "lua", "markdown", "zig", "rust", "python"},
     callback = function() vim.treesitter.start() end,
 })
 
