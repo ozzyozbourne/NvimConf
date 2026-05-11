@@ -1,9 +1,22 @@
+local ts_langs = {"lua", "python", "javascript", "typescript", "html", "css", "json", "bash", "zig", "c", "cpp", "rust"}
+vim.api.nvim_create_autocmd('PackChanged', {
+  callback = function(ev)
+    if ev.data.spec.name == 'telescope-fzf-native.nvim' then
+      local kind = ev.data.kind
+      if kind == 'install' or kind == 'update' then vim.system({ 'make' }, { cwd = ev.data.path }) end
+    end
+  end
+})
 vim.pack.add({
   'https://github.com/nvim-treesitter/nvim-treesitter',
+  'https://github.com/nvim-tree/nvim-web-devicons',
+  'https://github.com/nvim-telescope/telescope-fzf-native.nvim',
+  'https://github.com/nvim-lua/plenary.nvim',
+  'https://github.com/nvim-telescope/telescope.nvim',
 })
+require("nvim-treesitter").install(ts_langs)
 
 vim.g.mapleader = " "
-
 vim.o.termguicolors = true
 vim.o.nu = true
 vim.o.clipboard = "unnamedplus"
@@ -19,13 +32,11 @@ vim.o.undofile = true
 vim.o.undodir = os.getenv("HOME") .. "/.cache/nvim/undodir"
 vim.o.list = true
 vim.o.path = "**"
-
 vim.cmd("colorscheme retrobox")
 vim.cmd("command! -nargs=+ Grep execute 'silent grep! <args>' | copen")
-
-vim.api.nvim_create_autocmd("filetype", {
-    pattern = {"c", "h", "cpp", "lua", "markdown", "zig", "rust", "python"},
-    callback = function() vim.treesitter.start() end,
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = { "lua", "python", "javascript", "typescript", "html", "css", "json", "sh", "bash", "zig", "c", "cpp", "rust" },
+    callback = function() vim.treesitter.start() end
 })
 
 local map = vim.keymap.set
