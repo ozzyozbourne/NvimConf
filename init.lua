@@ -15,6 +15,8 @@ vim.pack.add({
   'https://github.com/nvim-telescope/telescope.nvim',
 })
 require("nvim-treesitter").install(ts_langs)
+require('telescope').load_extension('fzf')
+
 
 vim.g.mapleader = " "
 vim.o.termguicolors = true
