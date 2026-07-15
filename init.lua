@@ -42,7 +42,7 @@ vim.api.nvim_create_autocmd("FileType", {
     callback = function() vim.treesitter.start() end
 })
 
-local map = vim.keymap.set
+local map, builtin = vim.keymap.set, require("telescope.builtin")
 map("n", "<C-h>", "<C-w><C-h>")
 map("n", "<C-j>", "<C-w><C-j>")
 map("n", "<C-k>", "<C-w><C-k>")
@@ -66,8 +66,10 @@ map("n", "<leader>q", ":quit<CR>")
 map("n", "<leader>Q", ":quit!<CR>")
 map("n", "<leader>e", ":Ex<CR>")
 map("n", "<leader>v", ":edit $MYVIMRC<CR>")
-map("n", "<leader>ff", ":find ")
-map("n", "<leader>fg", ":Grep ")
+map('n', '<leader>ff', builtin.find_files, { desc = 'Telescope find files' })
+map('n', '<leader>fg', builtin.live_grep, { desc = 'Telescope live grep' })
+map('n', '<leader>fb', builtin.buffers, { desc = 'Telescope require("telescope").buffers' })
+map('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help tags' })
 map("n", "<leader>r", ":make!<CR>")
 map("n", "<leader>R", ":set makeprg=")
 map("n", "<leader>x", ":copen<CR>")
