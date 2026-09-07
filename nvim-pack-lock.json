@@ -1,5 +1,9 @@
 {
   "plugins": {
+    "fff": {
+      "rev": "d84c0a10cd5ea23285cb5575fa90179f51710f99",
+      "src": "https://github.com/dmtrKovalenko/fff"
+    },
     "nvim-treesitter": {
       "rev": "4916d6592ede8c07973490d9322f187e07dfefac",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter"
