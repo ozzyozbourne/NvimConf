@@ -22,8 +22,8 @@ require("nvim-treesitter").install(ts_langs)
 vim.g.mapleader = " "
 vim.o.termguicolors = true
 vim.o.nu = true
-vim.o.clipboard = "unnamedplus"
 vim.o.relativenumber = true
+vim.o.clipboard = "unnamedplus"
 vim.o.cursorline = true
 vim.o.expandtab = true
 vim.o.tabstop = 4
