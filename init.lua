@@ -39,14 +39,6 @@ vim.cmd("colorscheme retrobox")
 vim.cmd("command! -nargs=+ Grep execute 'silent grep! <args>' | copen")
 
 local map = vim.keymap.set
-map("n", "<C-d>", "<C-d>zz")
-map("n", "<C-u>", "<C-u>zz")
-
-map({ "i", "n" }, "<C-n>", "<C-x><C-]>")
-map({ "i", "n" }, "<C- >", "<C-x><C-o>")
-
-map("n", "n", "nzzzv")
-map("n", "N", "Nzzzv")
 map("v", "J", ":m '>+1<CR>gv=gv")
 map("v", "K", ":m '<-2<CR>gv=gv")
 map("n", "<A-h>", ":below term<CR>i")
