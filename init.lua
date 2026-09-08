@@ -1,10 +1,6 @@
-vim.g.mapleader = " "
 local ts_langs = { "lua", "python", "javascript", "typescript", "html", "css", "json", "bash", "zig", "odin", "c",  "cpp", "rust" }
-
-vim.g.fff = {
-    lazy_sync = true,
-    debug = { enabled = true, show_scores = true } 
-}
+vim.g.mapleader = " "
+vim.g.fff = { lazy_sync = true, debug = { enabled = true, show_scores = true } }
 vim.api.nvim_create_autocmd("PackChanged", {
     callback = function(ev)
         local data, name = ev.data, data.spec.name
@@ -20,7 +16,6 @@ vim.api.nvim_create_autocmd("PackChanged", {
     end,
 })
 vim.api.nvim_create_autocmd("FileType", { pattern = ts_langs, callback = function() vim.treesitter.start() end })
-
 local b = 'https://github.com/'
 vim.pack.add({
   b .. 'nvim-treesitter/nvim-treesitter',
