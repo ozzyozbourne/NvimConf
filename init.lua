@@ -15,7 +15,6 @@ local ts = {
 }
 
 vim.g.mapleader = " "
-
 vim.g.fff = { lazy_sync = true, debug = { enabled = true, show_scores = true } }
 vim.g.lean_config = { mappings = true }
 
@@ -53,8 +52,16 @@ vim.pack.add({
   b .. 'folke/snacks.nvim',
   b .. 'Julian/lean.nvim',
 })
+
 require("snacks").setup( {image = { enabled = true }} )
 require("nvim-treesitter").install(vim.tbl_values(ts))
+
+vim.lsp.config("pyrefly", {
+    cmd          = { "pyrefly", "lsp" },
+    filetypes    = { "python" },
+    root_markers = { "pyrefly.toml", "pyproject.toml", "setup.py", "setup.cfg", "requirements.txt", "Pipfile", ".git"}
+})
+vim.lsp.enable("pyrefly")
 
 vim.o.termguicolors = true
 vim.o.nu = true
