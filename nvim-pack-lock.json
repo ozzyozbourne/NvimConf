@@ -4,6 +4,10 @@
       "rev": "d84c0a10cd5ea23285cb5575fa90179f51710f99",
       "src": "https://github.com/dmtrKovalenko/fff"
     },
+    "lean.nvim": {
+      "rev": "5a2c1dff42ca1055dc8977f1ad3217e42ce72659",
+      "src": "https://github.com/Julian/lean.nvim"
+    },
     "nvim-treesitter": {
       "rev": "4916d6592ede8c07973490d9322f187e07dfefac",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter"
