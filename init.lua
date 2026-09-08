@@ -1,9 +1,29 @@
-local ts_langs = { "lua", "python", "javascript", "typescript", "html", "css", "json", "bash", "zig", "odin", "c",  "cpp", "rust" }
+local ts = {
+    lua        = "lua", 
+    python     = "python", 
+    javascript = "javascript", 
+    typescript = "typescript",
+    html       = "html", 
+    css        = "css", 
+    json       = "json", 
+    sh         = "bash", 
+    zig        = "zig", 
+    odin       = "odin",
+    c          = "c", 
+    cpp        = "cpp", 
+    rust       = "rust",
+}
+
 vim.g.mapleader = " "
+
 vim.g.fff = { lazy_sync = true, debug = { enabled = true, show_scores = true } }
+vim.g.lean_config = { mappings = true }
+
 vim.api.nvim_create_autocmd("PackChanged", {
+    group = vim.api.nvim_create_augroup("pack_changed", { clear = true }),
     callback = function(ev)
-        local data, name = ev.data, data.spec.name
+        local data = ev.data
+        local name = data.spec.name
         if data.kind ~= "install" and data.kind ~= "update" then return end
         if name == "fff" then
             if not data.active then vim.cmd.packadd("fff") end
@@ -13,18 +33,28 @@ vim.api.nvim_create_autocmd("PackChanged", {
             if not data.active then vim.cmd.packadd("nvim-treesitter") end
             vim.cmd.TSUpdate()
         end
-    end,
+    end
 })
-vim.api.nvim_create_autocmd("FileType", { pattern = ts_langs, callback = function() vim.treesitter.start() end })
+
+vim.api.nvim_create_autocmd("FileType", {
+    group    = vim.api.nvim_create_augroup("ts_start", { clear = true }),
+    pattern  = vim.tbl_keys(ts),
+    callback = function(ev)
+        local ok, err = pcall(vim.treesitter.start, ev.buf, ts[ev.match])
+        if not ok then vim.notify("treesitter: " .. tostring(err), vim.log.levels.WARN) end
+    end
+})
+
 local b = 'https://github.com/'
 vim.pack.add({
   b .. 'nvim-treesitter/nvim-treesitter',
   b .. 'dmtrKovalenko/fff',
   b .. 'nvim-tree/nvim-web-devicons',
   b .. 'folke/snacks.nvim',
+  b .. 'Julian/lean.nvim',
 })
 require("snacks").setup( {image = { enabled = true }} )
-require("nvim-treesitter").install(ts_langs)
+require("nvim-treesitter").install(vim.tbl_values(ts))
 
 vim.o.termguicolors = true
 vim.o.nu = true
@@ -41,7 +71,7 @@ vim.o.undofile = true
 vim.o.undodir = os.getenv("HOME") .. "/.cache/nvim/undodir"
 vim.fn.mkdir(vim.o.undodir, "p")
 vim.o.list = true
-vim.o.path = "**"
+vim.o.path = ".,,**"
 vim.cmd("colorscheme retrobox")
 
 local map = vim.keymap.set
