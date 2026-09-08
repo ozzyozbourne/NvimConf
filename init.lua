@@ -19,6 +19,8 @@ vim.g.mapleader = " "
 vim.g.fff = { lazy_sync = true, debug = { enabled = true, show_scores = true } }
 vim.g.lean_config = { mappings = true }
 
+vim.filetype.add({ extension = { gotmpl = "gotmpl", gohtml = "gotmpl" } })
+
 vim.api.nvim_create_autocmd("PackChanged", {
     group = vim.api.nvim_create_augroup("pack_changed", { clear = true }),
     callback = function(ev)
@@ -58,6 +60,9 @@ vim.pack.add({
 require("snacks").setup( {image = { enabled = true }} )
 require("nvim-treesitter").install(vim.tbl_values(ts))
 
+vim.lsp.config("gopls", {
+    settings = { gopls = { templateExtensions = { "gotmpl", "gohtml" } } },
+})
 vim.lsp.enable({ "pyrefly", "gopls", "rust_analyzer", "tsc" })
 
 vim.o.termguicolors = true
