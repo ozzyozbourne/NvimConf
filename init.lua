@@ -106,3 +106,6 @@ map("t", "<Esc>", "<C-\\><C-n>",      { desc = "Exit terminal mode" })
 map("n", "<leader>ff", function() require("fff").find_files() end, { desc = "FFF: Find files" })
 map("n", "<leader>fg", function() require("fff").live_grep() end,  { desc = "FFF: Live grep" })
 map({ "n", "x" }, "<leader>fw", function() require("fff").live_grep_under_cursor() end, { desc = "FFF: Grep word or selection" })
+
+map("n", "<leader>dq", vim.diagnostic.setqflist,  { desc = "Diagnostics: all buffers to quickfix" })
+map("n", "<leader>dl", vim.diagnostic.setloclist, { desc = "Diagnostics: this buffer to location list" })
