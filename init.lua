@@ -1,17 +1,18 @@
 local ts = {
-    lua        = "lua", 
-    python     = "python", 
-    javascript = "javascript", 
+    lua        = "lua",
+    python     = "python",
+    javascript = "javascript",
     typescript = "typescript",
-    html       = "html", 
-    css        = "css", 
-    json       = "json", 
-    sh         = "bash", 
-    zig        = "zig", 
+    html       = "html",
+    css        = "css",
+    json       = "json",
+    sh         = "bash",
+    zig        = "zig",
     odin       = "odin",
     go         = "go",
-    c          = "c", 
-    cpp        = "cpp", 
+    gotmpl     = "gotmpl",
+    c          = "c",
+    cpp        = "cpp",
     rust       = "rust",
 }
 
@@ -63,7 +64,20 @@ require("nvim-treesitter").install(vim.tbl_values(ts))
 vim.lsp.config("gopls", {
     settings = { gopls = { templateExtensions = { "gotmpl", "gohtml" } } },
 })
-vim.lsp.enable({ "pyrefly", "gopls", "rust_analyzer", "tsc" })
+vim.lsp.config("lua_ls", {
+    on_init = function(client)
+        local ws = client.workspace_folders and client.workspace_folders[1]
+        if ws and ws.name ~= vim.fn.stdpath("config")
+            and (vim.uv.fs_stat(ws.name .. "/.luarc.json") or vim.uv.fs_stat(ws.name .. "/.luarc.jsonc")) then
+            return
+        end
+        client.config.settings.Lua = vim.tbl_deep_extend("force", client.config.settings.Lua, {
+            runtime   = { version = "LuaJIT", path = { "lua/?.lua", "lua/?/init.lua" } },
+            workspace = { checkThirdParty = false, library = { vim.env.VIMRUNTIME } },
+        })
+    end,
+})
+vim.lsp.enable({ "pyrefly", "gopls", "rust_analyzer", "tsc", "jsonls", "html", "cssls", "lua_ls" })
 
 vim.o.termguicolors = true
 vim.o.nu = true
