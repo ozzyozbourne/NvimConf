@@ -9,6 +9,7 @@ local ts = {
     sh         = "bash", 
     zig        = "zig", 
     odin       = "odin",
+    go         = "go",
     c          = "c", 
     cpp        = "cpp", 
     rust       = "rust",
@@ -17,6 +18,8 @@ local ts = {
 vim.g.mapleader = " "
 vim.g.fff = { lazy_sync = true, debug = { enabled = true, show_scores = true } }
 vim.g.lean_config = { mappings = true }
+
+vim.filetype.add({ extension = { gotmpl = "gotmpl", gohtml = "gotmpl" } })
 
 vim.api.nvim_create_autocmd("PackChanged", {
     group = vim.api.nvim_create_augroup("pack_changed", { clear = true }),
@@ -51,17 +54,16 @@ vim.pack.add({
   b .. 'nvim-tree/nvim-web-devicons',
   b .. 'folke/snacks.nvim',
   b .. 'Julian/lean.nvim',
+  b .. 'neovim/nvim-lspconfig',
 })
 
 require("snacks").setup( {image = { enabled = true }} )
 require("nvim-treesitter").install(vim.tbl_values(ts))
 
-vim.lsp.config("pyrefly", {
-    cmd          = { "pyrefly", "lsp" },
-    filetypes    = { "python" },
-    root_markers = { "pyrefly.toml", "pyproject.toml", "setup.py", "setup.cfg", "requirements.txt", "Pipfile", ".git"}
+vim.lsp.config("gopls", {
+    settings = { gopls = { templateExtensions = { "gotmpl", "gohtml" } } },
 })
-vim.lsp.enable("pyrefly")
+vim.lsp.enable({ "pyrefly", "gopls", "rust_analyzer", "tsc" })
 
 vim.o.termguicolors = true
 vim.o.nu = true
