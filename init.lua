@@ -104,7 +104,6 @@ local map = vim.keymap.set
 map("v", "J", ":m '>+1<CR>gv=gv",     { desc = "Move selection down" })
 map("v", "K", ":m '<-2<CR>gv=gv",     { desc = "Move selection up" })
 map("n", "<A-h>", ":below term<CR>i", { desc = "Open terminal below" })
-map("t", "<Esc>", "<C-\\><C-n>",      { desc = "Exit terminal mode" })
 
 map("n", "<leader>ff", function() require("fff").find_files() end, { desc = "FFF: Find files" })
 map("n", "<leader>fg", function() require("fff").live_grep() end,  { desc = "FFF: Live grep" })
