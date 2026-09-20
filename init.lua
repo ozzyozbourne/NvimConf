@@ -19,6 +19,8 @@ local ts = {
 vim.g.mapleader = " "
 vim.g.fff = { lazy_sync = true, debug = { enabled = true, show_scores = true } }
 vim.g.lean_config = { mappings = true }
+vim.g.netrw_banner = 0
+vim.g.netrw_liststyle = 3
 
 vim.filetype.add({ extension = { gotmpl = "gotmpl", gohtml = "gotmpl" } })
 
@@ -89,7 +91,8 @@ vim.o.tabstop = 4
 vim.o.shiftwidth = 4
 vim.o.swapfile = false
 vim.o.backup = false
-vim.o.wrap = false
+vim.o.linebreak = true
+vim.o.breakindent = true
 vim.o.undofile = true
 vim.o.undodir = os.getenv("HOME") .. "/.cache/nvim/undodir"
 vim.fn.mkdir(vim.o.undodir, "p")
@@ -101,7 +104,6 @@ local map = vim.keymap.set
 map("v", "J", ":m '>+1<CR>gv=gv",     { desc = "Move selection down" })
 map("v", "K", ":m '<-2<CR>gv=gv",     { desc = "Move selection up" })
 map("n", "<A-h>", ":below term<CR>i", { desc = "Open terminal below" })
-map("t", "<Esc>", "<C-\\><C-n>",      { desc = "Exit terminal mode" })
 
 map("n", "<leader>ff", function() require("fff").find_files() end, { desc = "FFF: Find files" })
 map("n", "<leader>fg", function() require("fff").live_grep() end,  { desc = "FFF: Live grep" })
