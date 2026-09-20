@@ -91,7 +91,8 @@ vim.o.tabstop = 4
 vim.o.shiftwidth = 4
 vim.o.swapfile = false
 vim.o.backup = false
-vim.o.wrap = false
+vim.o.linebreak = true
+vim.o.breakindent = true
 vim.o.undofile = true
 vim.o.undodir = os.getenv("HOME") .. "/.cache/nvim/undodir"
 vim.fn.mkdir(vim.o.undodir, "p")
