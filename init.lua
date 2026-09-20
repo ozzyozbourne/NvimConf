@@ -19,6 +19,8 @@ local ts = {
 vim.g.mapleader = " "
 vim.g.fff = { lazy_sync = true, debug = { enabled = true, show_scores = true } }
 vim.g.lean_config = { mappings = true }
+vim.g.netrw_banner = 0
+vim.g.netrw_liststyle = 3
 
 vim.filetype.add({ extension = { gotmpl = "gotmpl", gohtml = "gotmpl" } })
 
